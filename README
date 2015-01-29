@@ -1,0 +1,7 @@
+To generate a PDF for an assignment:
+
+cd HW<N>
+make
+
+
+This will generate a pdf file of the homework in the HW<N> directory
