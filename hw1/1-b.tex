@@ -1,0 +1,39 @@
+\begin{problem}
+  {Q1(b)}
+  State whether Alice or Bob have provided correct algorithms.
+  Also, either prove the algorithm to be right, or show how it is wrong.\\
+  The algorithms in question have been reproduced below with numbered lines for convenience: \\
+  \vspace{10pt}\\
+  \textbf{Alice's Algorithm}
+  \begin{algorithmic}[1]
+    \STATE Initially $sum = 0$ and $count = 0$
+    \WHILE {the input stream is not empty}
+    \STATE Read the integer $i$
+    \STATE Add $i$ to $sum$
+    \STATE Report average as $sum / count$
+    \STATE Increase $count$ by 1
+    \ENDWHILE
+  \end{algorithmic}
+  \vspace{10pt}
+  \textbf{Bob's Algorithm}
+  \begin{algorithmic}[1]
+    \STATE Initially $average = 0$ and $count = 0$
+    \WHILE {the input stream is not empty}
+    \STATE Read the integer $i$
+    \STATE $average := (average \times count + i) / (count + 1)$
+    \STATE Increase $count$ by 1
+    \STATE $Report average$
+    \ENDWHILE
+  \end{algorithmic}
+  \textbf{Solution:}\\
+  \noindent
+  Alice's algorithm is incorrect
+  \begin{proof}
+    TODO\\
+  \end{proof}
+  \noindent
+  Bob's algorithm is correct
+  \begin{proof}
+    TODO\\
+  \end{proof}
+\end{problem}
