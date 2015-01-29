@@ -1,0 +1,32 @@
+\begin{problem}
+  {Q3}
+    Modify the Gale-Shapley Algorithm to fulfill the following definition of stability, and prove correctness \\
+    Stability implies none of the following types of instability: \\
+    \begin{itemize}
+      \item Type 1 instability: There is a candidate $X$ and a team $Y$ , such that
+        $X$ is not assigned to $Y$, but $X$ prefers $Y$ more than his assigned team,
+        and $Y$ prefers $X$ more than at least one of the candidates assigned
+        to it.
+      \item Type 2 instability: There exists a candidate $X$ who is not assigned to
+        any team, but there is a team $Y$ with an emply spot, or a candidate
+        $X_0$ assigned to it such that $Y$ prefers $X$ more than $X_0$.
+      \item Type 3 instability: There exists a team with one or more empty
+        spots, but there is an unassigned candidate.
+    \end{itemize}
+    \begin{algorithmic}[1]
+      \STATE Pick one unmatched man $x$
+      \STATE $x$ proposes to the top woman $y$ in his list who he has not yet proposed to
+      \IF {$y$ is free}
+        \STATE $y$ temporarily accepts $x$
+      \ELSIF {$y$ is matched with $x' \ne x$}
+        \IF {$x <_{y} x'$}
+        \STATE $y$ accepts $x$ temporarily, $x'$ becomes free
+        \ELSE
+        \STATE $y$ rejects $x$
+        \ENDIF
+      \ENDIF
+    \end{algorithmic}
+    \begin{proof}
+      TODO\\
+    \end{proof}
+\end{problem}
