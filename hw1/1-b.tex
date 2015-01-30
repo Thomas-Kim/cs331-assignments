@@ -29,11 +29,24 @@
   \noindent
   Alice's algorithm is incorrect
   \begin{proof}
-    TODO\\
+      Suppose the set of numbers $S=\{1\}$
+      By line 5 of Alice's algorithm, $count=0,sum=1,\frac{sum}{count} = \frac{1}{0}$. The answer is undefined when it should be 1.
   \end{proof}
   \noindent
   Bob's algorithm is correct
   \begin{proof}
-    TODO\\
+      Let $Average(S_n)$ be defined as the mean of the subset of $S$ containing the first $n$ elements. \\
+      Let $S$ be a set of $N$ integers. \\
+      By the definition of mean of set S, $Average(S_N) = \frac{\sum_{i=1}^{N} S_i}{N}$.
+      Base case: \\
+      ~~~~$Average(S_1) = \frac{\sum_{i=1}^{1} S_i}{1} = S_1$ \\
+      Induction hypothesis: \\
+      By line 4 of Bob's algorithm, $Average(n+1) = Average(n) * count + i) / (count + 1)$ \\
+      By line 5 of Bob's algorithm, when processing integer $S_{n+1}$, $count = n$ \\
+      $Average(n+1) = (Average(n) * (n) + i) / (n+1)$ \\
+      $Average(n+1) = (\frac{\sum_{i = 1}^{n} S_i}{n} * n + S_{n+1}) / (n+1)$ \\
+      $Average(n+1) = ((\sum_{i = 1}^{n} S_i) + S_{n+1}) / (n + 1)$ \\
+      \{$((\sum_{i = 1}^{n} S_i) + S_{n+1}) = (\sum_{i = 1}^{n+1} S_i)\}$ \\
+      $Average(n+1) = (\sum_{i = 1}^{n+1} S_i) / (n + 1) $ \\
   \end{proof}
 \end{problem}
