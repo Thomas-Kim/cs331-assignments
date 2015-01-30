@@ -4,4 +4,13 @@
   \begin{align*}
     \sum_{i=0}^{n-1}a^i = \frac{1 - a^n}{1-a}
   \end{align*}
+  \begin{proof}
+    Base case: \\
+    $\sum_{i=0}^{n-1}2^i$ \\
+    $\sum_{i=0}^{n-x}2^i = (2\sum_{i = 0}^{n-x}2^i) + 1$\\
+    $\sum_{i=0}^{n-1}2^i = 2^{n-1} + 2^{n-1} - 1$ \\
+    $=2(2^{n-1}) - 1 = 2^{n} - 1$ \\
+    $=-(2^{n} - 1) / (-1) = \frac{1 - 2^n}{(1 - 2)}$ \\
+    Induction Hypothesis: \\
+  \end{proof}
 \end{problem}

@@ -2,6 +2,10 @@
   {Q2(a)}
   Show that it is always possible to guess a number between 1 and 1 million using 20 questions.
   \begin{proof}
-    TODO\\
+    Suppose we arranged the numbers into a binary tree $T$ where one node $n$'s children are given to be $n + (n / 2)$ and $n - (n / 2)$ \\
+    Suppose the root of the tree is given to be $500,000$ \\
+    Execute binary search on the tree $T$ \\
+    The complexity of binary search is $O(log_2(n))$ \\
+    $log_2(1,000,000) \leq 20 \implies $ it is possible to guess the number using 20 or more guesses. \\
   \end{proof}
 \end{problem}
