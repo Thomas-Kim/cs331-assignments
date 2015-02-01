@@ -5,14 +5,20 @@
     \sum_{i=0}^{n-1}a^i = \frac{1 - a^n}{1-a}
   \end{align*}
   \begin{proof}
-    \textbf{Base case:} \\
+    \textbf{Base case:} $n = 0$ \\
     \begin{align*}
-    \sum_{i=0}^{n-1}2^i \\
-    \sum_{i=0}^{n-x}2^i = (2\sum_{i = 0}^{n-x}2^i) + 1\\
-    \sum_{i=0}^{n-1}2^i = 2^{n-1} + 2^{n-1} - 1 \\
-    =2(2^{n-1}) - 1 = 2^{n} - 1 \\
-    =-(2^{n} - 1) / (-1) = \frac{1 - 2^n}{(1 - 2)} \\
+      \sum_{i = 0}^{0} a^i = 1 \\
+      = \frac{1 - a^1}{1 - a} \\
+      = \frac{(1 - a^1)}{1 - a} \\
     \end{align*}
     \textbf{Induction Hypothesis:} \\
+    \begin{align*}
+      \sum_{i = 0}^{n} a^i = \sum_{i = 0}^{n-1} + a^n \\
+      = \frac{1 - a^{n}}{1 - a} + a^n \\
+      = \frac{1 - a^{n}}{1 - a} + \frac{(1 - a)a^n}{1 - a} \\
+      = \frac{1 - a^{n} + (a^n - a^{n+1})}{1 - a} \\
+      = \frac{1 - a^n + a^n - a^{n+1}}{1-a} \\
+      = \frac{1 - a^{n+1}}{1-a} \\
+    \end{align*}
   \end{proof}
 \end{problem}
