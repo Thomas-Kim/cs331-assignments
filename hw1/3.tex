@@ -57,14 +57,24 @@
       However, $|M| > |W|$, so there must exist some $m \in M$ which is unmatched. \\
       $\therefore$ if $|M| > |W|$, every woman must be matched by the end of the modified G-S algorithm. \\
     \end{proof}
+    \noindent
     Fact 1: The set $S_{G-S}$ resulting from running the G-S algorithm will never contain an unstable pair, where instability is defined as $(m,w) \in S_{G-S} : \exists m', w', m <_{w} m' \land w <_{m} w'$ \\
+    Fact 2: G-S is man-optimal
     \noindent
     \textbf{Proof of Type 1 instability:}
     \begin{proof}
+      Suppose there is candidate $X$ and a team $Y$. \\
+      Suppose the slots of team $Y$ are given to be $Y_{1}, Y_{2}, \dots, Y_{n}$ \\
+      Suppose there is type 1 instability, where X is not assigned to Y, but X prefers Y and Y prefers X. \\
+      This means, the pairs $(X, Y'_i), (X', Y_j)$ are part of the resulting matching. \\
+      Since $X, X'$ are drawn from the set of men, and $Y'_i, Y_j$ are drawn from the set of women, this means $\exists (m, w) \in S_{G-S} : \exists m', w', m <_{w} m' \land w <_{m} w'$ \\
+      However, G-S is guaranteed not to have such instabilities, therefore such a pairing cannot exist. \\
     \end{proof}
     \noindent
     \textbf{Proof of Type 2 instability:}
     \begin{proof}
+    There cannot exist a candidate who is not assigned to any team while there is an empty slot by \textbf{Lemma 1}. \\
+    G-S is man-optimal, so each man (slot) will get its best valid partner (candidate). Therefore, there cannot exist such an $X_0$ that the team prefers $X$ over $X_0$. \\
     \end{proof}
     \noindent
     \textbf{Proof of Type 3 instability:}
