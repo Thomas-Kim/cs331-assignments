@@ -3,38 +3,81 @@
   Show that it possible to guess a number 1-N given 3 "strikes" (questions answered no) and $O(n^{\frac{1}{3}})$ questions. \\
   \begin{algorithmic}[1]
     \STATE Phase 1: $g_1 = 0$, Guessing number $1 < n < N$
-    \FOR {$g_1 = 0 \dots N^{\frac{1}{3}}$}
-    \STATE Ask "Is $ n^{\frac{1}{3}} > g_1$?"
+    \STATE Define a mapping $f(x) \rightarrow x^{\frac{1}{3}}$
+    \FOR {$g_1 = 0 \dots f(N)$}
+    \STATE Ask "Is $ f(n) > g_1$?"
     \IF {Answer = "No"}
     \STATE Save the current value of $g_1$ and go to Phase 2
     \ENDIF
     \ENDFOR
     \STATE Phase 2: $g_2 = 0$
-    \STATE Define a mapping $f(x) \rightarrow x - g_1$
-    \FOR {$g_2 = 0 \dots ((g_1)^3 - (g_1 - 1)^3)$}
-    \STATE Ask "Is $(f(n))^{\frac{1}{3}} < g_2$?"
+    \STATE Define a mapping $g(x) \rightarrow (x^3 - (g_1 - 1)^3)^{\frac{1}{3}}$
+    \FOR {$g_2 = 0 \dots g(g_1)$}
+    \STATE Ask "Is $(g(f(n)) > g_2$?"
     \IF {Answer = "No"}
     \STATE Save the current value of $g_2$ and go to Phase 3
     \ENDIF
     \ENDFOR
     \STATE Phase 3: $g_3 = 0$
-    \FOR {$g_3 = 0 \dots (f^{-1}((g_2)^3) - f^{-1}((g_2 - 1)^3)$}
-    \STATE Ask "Is $n > g_3$?"
+    \STATE Define a mapping $h(x) \rightarrow (x^3 - (g_2 - 1)^3)}$
+    \FOR {$g_3 = 0 \dots h(g_2)$}
+    \STATE Ask "Is $h(g(f(n))) > g_3$?"
     \IF {Answer = "No"}
-    \STATE Guess $g_3$ and halt
+    \STATE Guess $h^{-1}(g^{-1}(f^{-1}(g_3)))$ and halt
     \ENDIF
     \ENDFOR
   \end{algorithmic}
-  \textbf{Lemma 1:} At the beginning of phase 2, $N^{\frac{1}{3}}$ questions, $1$ strike will be used. \\
+  \textbf{Lemma 1a:} At the beginning of phase 2, up to $N^{\frac{1}{3}}$ questions will have been asked. \\
+  \begin{proof}
+    By line TODO, phase 1 is guaranteed to terminate after the loop finishes, which finishes in $N^{\frac{1}{3}}$ iterations. \\
+    By line TODO, during each iteration of the loop in phase 1, precisely 1 question is asked. \\
+    $\implies $ no more than $N^{\frac{1}{3}}$ questions can be asked during phase 1. \\
+    By line TODO and line TODO, phase 1 can only directly precede phase 2. \\
+    $\implies $ Phase 2 immediately follows phase 1, so no questions can be asked between phase 1 and phase 2 \\
+    $\implies $ At the beginning of phase 2, up to $N^{\frac{1}{3}}$ questions can have been asked. \\
+  \end{proof}
+  \textbf{Lemma 1b:} At the beginning of phase 2, precisely 1 strike will be used. \\
+  \begin{proof}
+    By line TODO, if 1 strike is used during phase 1, the algorithm will immediately go to phase 2. \\
+    Suppose no strikes are used during phase 1. \\
+    $\implies n^{\frac{1}{3}} > N^{\frac{1}{3}}$ by lines 2 and 3, since $g_1 = N^{\frac{1}{3}}$ during the last iteration of the loop. \\
+    $\implies n > N$, which means $n$ is not in the range 1-N. \\
+    Therefore, no more than 1 strikes can be used during phase 1, and at least 1 strike must be used during phase 1 \\
+    Phase 1 always leads immediately to phase 2, from the proof of lemma 1. \\
+    $\therefore $ precisely 1 strike will be used at the beginning of phase 2. \\
+  \end{proof}
+  \textbf{Lemma 2:} At the beginning of phase 2, the possible values of $n$ will be bounded by $(g_1 - 1)^3 < n \leq (g_1)^3$ \\
+  \begin{proof}
+    By lemma 1b, precisely 1 strike must have been used during phase 1. \\
+    $\implies $ line 5 was executed precisely 1 time. \\
+    Suppose $g_1 = \alpha$ when line 5 was executed. \\
+    During the previous iteration of the loop, line 5 must not have executed, because otherwise the loop would terminate. \\
+    During the previous iteration of the loop, $g_1 = \alpha - 1$. \\
+    Since line TODO did not execute during the previous iteration, $\alpha - 1 < n^{\frac{1}{3}}$ by line TODO and 4. \\
+    Since line TODO executed during this iteration, $\alpha \geq n^{frac{1}{3}}$ by line TODO and 4. \\
+    $\implies (\alpha - 1)^3 < n \land (\alpha)^3 \geq n \implies (\alpha - 1)^3 < n \leq (\alpha)^3$ \\
+    By line TODO of this proof, $g_1 = \alpha \implies (g_1 - 1)^3 < n \leq (g_1)^3$ \\
+  \end{proof}
+  \textbf{Lemma 3a:} At the beginning of phase 3, $N^{\frac{1}{3}} + (3\alpha^2 - 3\alpha + 1)^{\frac{1}{3}}$ questions will have been asked. \\
   \begin{proof}
   \end{proof}
-  \textbf{Lemma 2:} Let $\alpha = N^{\frac{1}{3}}$. At the beginning of phase 2, the possible values of $n$ will be bounded by $(\alpha - 1)^3 \leq n \leq (\alpha)^3$ \\
+  \textbf{Lemma 3b:} At the beginning of phase 3, precisely 2 strikes will be used. \\
+  \begin{proof}
+    By line TODO, if 1 strike is used during phase 2, the algorithm will immediately go to phase 3. \\
+    Suppose no strikes are used during phase 2. \\
+    This means during the last iteration, $g_2 = (g_1)^3 - (g_1 - 1)^3 \land f(n) > g_2$ \\
+    By \textbf{lemma 2}, $(g_1 - 1)^3 < n \leq (g_1)^3 \implies 0 < n - (g_1 - 1)^3 < (g_1)^3 - (g_1 - 1)^3$ \\
+    By line TODO, the algorithm iterates $(g_1)^3 - (g_1 - 1)^3$ times, iterating through $0 < g_2 < (g_1)^3 - (g_1 - 1)^3$ \\
+    By line TODO of this proof, $0 < f(n) < (g_1)^3 - (g_1 - 1)^3$ \\
+    $\therefore $ if $f(n) > g_2$ during the last iteration, $f(n) > (g_1)^3 - (g_1 - 1)^3 \implies n > (g_1)^3$ \\
+    $\implies $ at least 1 strike must be used during phase 2. \\
+    By line TODO of this proof, and \textbf{lemma 1b}, precisely 2 strikes must be used by the end of phase 2 \\
+    Since phase 2 always immediately leads to phase 3, precisely 2 strikes have been used at the beginning of phase 3. \\
+  \end{proof}
+  \textbf{Lemma 4:} At the beginning of phase 3, the possible values of $n$ will be bounded by TODO
   \begin{proof}
   \end{proof}
-  \textbf{Lemma 3:} At the beginning of phase 3, $N^{\frac{1}{3}} + (3\alpha^2 - 3\alpha + 1)^{\frac{1}{3}}$ questions, $2$ strikes will be used. \\
-  \begin{proof}
-  \end{proof}
-  \textbf{Lemma 4:} Let $\beta = N^{\frac{1}{3}}$. At the beginning of phase 3, the possible values of $n$ will be bounded by $(\beta - 1)^3 \leq n \leq (\beta)^3$ \\
+  \textbf{Lemma 5:} On line TODO! of the algorithm, $g_3 - 1 < n \land n \leq g_3 \implies n = g_3$
   \begin{proof}
   \end{proof}
   \textbf{Proof of correctness:}

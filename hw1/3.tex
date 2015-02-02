@@ -8,14 +8,26 @@
         and $Y$ prefers $X$ more than at least one of the candidates assigned
         to it.
       \item Type 2 instability: There exists a candidate $X$ who is not assigned to
-        any team, but there is a team $Y$ with an emply spot, or a candidate
+        any team, but there is a team $Y$ with an empty spot, or a candidate
         $X_0$ assigned to it such that $Y$ prefers $X$ more than $X_0$.
       \item Type 3 instability: There exists a team with one or more empty
         spots, but there is an unassigned candidate.
     \end{itemize}
+    Suppose the set of teams $G = \{T_1, T_2, \dots, T_n\}$ where each team is a set of empty spots $T_i = \{T_{i, 1}, T_{i, 2}, \dots, T_{i, m}\}$ \\
+    %Let the set of men $M = \{T_{1, 1}, \dots, T_{1, m}, \dots T_{n, m}\}$ such that $\forall j, k, T_{x, j} \in M, T_{x, j} \not<_{y} T_{x, k}$ \\
+    Let the set of men $M$ be the set of empty slots. \\
+    Let the set of women $W$ be the set of candidates. \\
+    The preference list for each empty slot is the same as the preference list for its respective team. \\
+    For each candidate, expand each team $T_{i}$ on their preference list into a list of slots $\{T_{i, j}\}$, ordered such that lower $j$ are more preferred \\
+    Now simply run the modified G-S algorithm on these two sets $M$ and $W$ as shown below.
     \begin{algorithmic}[1]
       \STATE Pick one unmatched man $x$
-      \STATE $x$ proposes to the top woman $y$ in his list who he has not yet proposed to
+      \IF {$x$ has not yet proposed to a woman in his list}
+        \STATE $x$ proposes to the top woman $y$ in his list who he has not yet proposed to
+      \ELSE
+        \STATE mark $x$ done
+        \STATE goto 1
+      \ENDIF
       \IF {$y$ is free}
         \STATE $y$ temporarily accepts $x$
       \ELSIF {$y$ is matched with $x' \ne x$}
@@ -25,8 +37,48 @@
         \STATE $y$ rejects $x$
         \ENDIF
       \ENDIF
+      \STATE Repeat until every man is marked done or is matched
     \end{algorithmic}
+    \textbf{Lemma 1:} The G-S algorithm will either match every woman to a man or every man to a woman given 2 sets of unequal length
     \begin{proof}
-      TODO\\
+      Suppose $|W| > |M|$. \\
+      The modified G-S algorithm will not terminate until every man is matched or has proposed to every woman on his list. \\
+      Suppose some man $m$ is unmatched when the algorithm completes. \\
+      If $m$ is unmatched, he must been rejected by every woman $w \in W$ \\
+      Every woman $w \in W$ must already be matched to a man $m': m' >_{w} m$ \\
+      However, $|W| > |M|$, so there must be some woman who is not matched to a man. \\
+      $\therefore$ if $|W| > |M|$, every man must be matched by the end of the modified G-S algorithm. \\\\
+      %%%%%%%%%%%%%%%%%%%%%%%%%%%
+      Suppose $|M| > |W|$. \\
+      The modified G-S algorithm will not terminate until every man is matched or has proposed to every woman on his list. \\
+      Suppose some woman $w$ is unmatched when the algorithm completes. \\
+      If $w$ is unmatched, she must not have been proposed to by any man $m \in M$ \\
+      If a woman has not been proposed to, every man must already be matched. \\
+      However, $|M| > |W|$, so there must exist some $m \in M$ which is unmatched. \\
+      $\therefore$ if $|M| > |W|$, every woman must be matched by the end of the modified G-S algorithm. \\
+    \end{proof}
+    Fact 1: The set $S_{G-S}$ resulting from running the G-S algorithm will never contain an unstable pair, where instability is defined as $(m,w) \in S_{G-S} : \exists m', w', m <_{w} m' \land w <_{m} w'$ \\
+    \noindent
+    \textbf{Proof of Type 1 instability:}
+    \begin{proof}
+    \end{proof}
+    \noindent
+    \textbf{Proof of Type 2 instability:}
+    \begin{proof}
+    \end{proof}
+    \noindent
+    \textbf{Proof of Type 3 instability:}
+    \begin{proof}
+    By \textbf{lemma 1}, the modified G-S algorithm must either match all women or all men. \\
+    \textbf{Case 1:} Suppose the modified G-S algorithm matches all men but not all women. \\
+    By definition, this means all of the slots are matched and there are some unassigned candidates. \\
+    By definition, this means no team exists with an empty slot. \\
+    Therefore, there cannot exist a team with an empty slot if there are some unassigned candidates. \\
+    \textbf{Case 2:} Suppose the modified G-S algorithm matches all women but not all men. \\
+    This means there exist no unmatched candidates and there are some empty slots. \\
+    By definition, this means some team exists with an empty slot. \\
+    Therefore, there cannot exist unmatched candidates if some team exists with an empty slot. \\
+    \textbf{Case 3:} Suppose all men and women are matched. \\
+    By definition, this means no team has an empty slot and there are not unassigned candidates. \\
     \end{proof}
 \end{problem}
