@@ -94,15 +94,15 @@
   \textbf{Proof of correctness:}
   \begin{proof}
   By \textbf{Lemma 4}, the possible values of $n$ are bounded by $(\beta - 1)^3 \leq n \leq (\beta)^3$. \\
-  By line 19, 20 of the algorithm, Phase 3 is a linear search over this range
-  By \textbf{Lemma 5}, $g_3 - 1 < n \land n \leq g_3 \implies n = g_3$
-  By line 22 of the algorithm, the value guessed is $h^{-1}(g^{-1}(g_3)) = n$.
+  By line 19, 20 of the algorithm, Phase 3 is a linear search over this range \\
+  By \textbf{Lemma 5}, $g_3 - 1 < n \land n \leq g_3 \implies n = g_3$ \\
+  By line 22 of the algorithm, the value guessed is $h^{-1}(g^{-1}(g_3)) = n$. \\
   \end{proof}
   \textbf{Proof of termination within $O(N^{\frac{1}{3}})$ time:}
   \begin{proof}
-    By lemma 1a Phase 1 uses $N^{\frac{1}{3}}$ time. \\
-    By lemma 2a Phase 2 uses $\sqrt{3N^{\frac{2}{3}} - 3N^{\frac{1}{3}} + 1}$ time. \\
-    By lemma 4 and the fact that phase 3 is linear search, Phase 3 uses $2(\sqrt{3(N^{\frac{2}{3}} - N^{\frac{1}{3}}) + 1}) - 1$ time. \\
+    By lemma 1a Phase 1 uses $N^{\frac{1}{3}}$ questions. \\
+    By lemma 2a Phase 2 uses $\sqrt{3N^{\frac{2}{3}} - 3N^{\frac{1}{3}} + 1}$ questions. \\
+    By lemma 4 and the fact that phase 3 is linear search, Phase 3 uses $2(\sqrt{3(N^{\frac{2}{3}} - N^{\frac{1}{3}}) + 1}) - 1$ questions. \\
     No term grows faster than $N^{\frac{1}{3}}$ \\
   \end{proof}
   \textbf{Proof of termination using precisely 3 strikes:}
