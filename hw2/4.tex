@@ -1,3 +1,69 @@
 \begin{problem}
-  {Q4}
+  {Q4} Express the $n+1$ person ballroom murder problem as a graph problem and provide an efficient way to detect inconsistencies \\
+  \textbf{Graph construction algorithm}
+  \begin{algorithmic}[1]
+    \STATE Let $P$ be the set of people
+    \STATE Let $D$ be the set of statements of the form "$i$ danced with $j$"
+    \STATE Let $L$ be the set of statements of the form "$i$ saw $j$ leaving"
+    \STATE Let $E$ be the set of statements of the form "$i$ saw $j$ entering"
+    \STATE Let $G_1, G_2, G_3$ be empty graphs
+    \FOR {$p \in P$}
+    \STATE Add $p$ to $G_1, G_2, G_3$ as a vertex $v_{1,1}$ and $v_{2,1}$ respectively
+    \ENDFOR
+    \FOR {$l \in L$}
+    \STATE Add a directed edge between $v_{1, i}$ and $v_{1, j}$
+    \ENDFOR
+    \FOR {$l \in E$}
+    \STATE Add a directed edge between $v_{2, i}$ and $v_{2, j}$
+    \ENDFOR
+    \FOR {$d \in D$}
+    \STATE Add a directed edge between $v_{3, i}$ and $v_{3, j}$
+    \ENDFOR
+  \end{algorithmic}
+  \textbf{Inconsistency detection algorithm}
+  \begin{algorithmic}[1]
+    \STATE $T_1, T_2 = \emptyset$
+    \WHILE {$\exists s \in G_1, s$ has not been explored yet}
+    \STATE Perform BFS on $G_1$ starting on $s$ to generate subtree $t_{1, k}$
+    \STATE $T_1 = T_1 \cup \{t_{1, k}\}$
+    \ENDWHILE
+    \WHILE {$\exists s \in G_2, s$ has not been explored yet}
+    \STATE Perform BFS on $G_2$ starting on $s$ to generate subtree $t_{2, k}$
+    \STATE $T_2 = T_2 \cup \{t_{2, k}\}$
+    \ENDWHILE
+    \STATE Use BFS to check for cycles in $G_1, G_2$
+    \IF {$\exists$ cycle in $G_1$ or $G_2$}
+    \STATE Inconsistency
+    \ENDIF
+    \FOR {$\forall v \in G_1$}
+    \STATE Ensure all outgoing edges $e$ from $v$ in $G_3$ do not correspond to an edge between adjacent levels in any $t_{i, k} \in T_1, T_2$
+    \STATE Remove $e$ from $G_3$
+    \ENDFOR
+  \end{algorithmic}
+  \textbf{Inconsistency 1: } Odd length cycles in $G_1$ or $G_2$ imply inconsistencies with the population occupying the room. \\
+  \begin{proof}
+    Suppose there is a cycle in $G_1$ or $G_2$. \\
+    This means $\exists p_1, p_2, \dots, p_n \in G \mid| p_x$ entered after $p_{x+1}$ left $\land p_{n} $ entered after $p_1$ left \\
+    $\implies p_1$ entered after $p_k$ left, $k > 1$, particularly $p_1$ entered after $p_n$ left. \\
+    This is inconsistent, as $p_1$ cannot have entered after $p_n$ left and $p_n$ entered after $p_1$ left, as each person entered the ballroom only once. \\
+  \end{proof}
+  \textbf{Inconsistency 2: } Edges present in $G_3$ which connect nodes in different layers of $T_1$ or $T_2$ imply inconsistency. \\
+  \begin{proof}
+    Suppose the graphs $G_1, G_2$ are acyclic. If they had cycles, there is already an inconsistency. \\
+    Suppose two nodes are in different layers of $G_1$ or $G_2$ \\
+    This means these two nodes could not have been in the room at the same time, since a parent cannot be in the same room as any child in its subtree. \\
+    Suppose there is an edge present in $G_3$ which connected nodes in different layers of $T_1$ or $T_2$. \\
+    This means two people who were never in the same room at the same time danced together, which is impossible. \\
+  \end{proof}
+  \textbf{Proof of runtime: }
+  \begin{proof}
+    Let the number of statements be $a$ \\
+    The graph construction constructs three graphs each with $n+1$ nodes. \\
+    The graph iterates through each statement once, creating $a$ edges. \\
+    Therefore the number of operations taken to construct the graph is $O(3n + a + 3)$ \\
+    The inconsistency detection algorithm performs BFS twice, which is $O(2m + 2n) = O(2n + 2 + 2a)$ \\
+    The inconsistency detection algorithm checks for cycles during BFS by checking for any non-tree edges, which does not contribute to the complexity. \\
+    The inconsistency detection algorithm then iterates through each vertex in $T_1, T_2$ and each node/edge in $G_3$, taking $O(3n + 3 + a)$ \\
+    The final complexity is $O(3n + a + 3 + 2n + 2 + 2a + 3n + 3 + a) = O(8n + 4a + 8)$, which is linear complexity. \\
+  \end{proof}
 \end{problem}

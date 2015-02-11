@@ -4,4 +4,21 @@
   uniquely labels $n$ images as either A or B, such that two images reported to be the same by
   ImgComp get the same label, and two images reported to be different by ImgComp get different labels. \\
   Prove the algorithm's runtime and correctness. \\
+  \begin{algorithmic}[1]
+    \STATE Let $I$ be the set of images such that $|I| = n$ \\
+    \STATE Let $U$ be the set of unambiguous matches such that $|U| = m$ \\
+    \FOR {$\forall i_x \in I$}
+    \STATE Create a node $v_x$ corresponding to $i$ in graph $G$
+    \ENDFOR
+    \FOR {$\forall (i_x, i_y) \in U$}
+    \IF {The match returns "DIFFERENT"}
+    \STATE Create an edge between the nodes $v_x$ and $v_y$ in graph $G$
+    \ENDIF
+    \ENDFOR
+    \STATE $T = \emptyset$
+    \WHILE {$\exists s \in G$ such that $s$ has not been explored by BFS}
+    \STATE Execute BFS starting at $s$ to generate subtree $t_j$
+    \STATE $T = T \cup \{t_j\}$
+    \ENDWHILE
+  \end{algorithmic}
 \end{problem}
