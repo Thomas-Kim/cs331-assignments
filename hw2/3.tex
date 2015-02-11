@@ -5,13 +5,14 @@
   ImgComp get the same label, and two images reported to be different by ImgComp get different labels. \\
   Prove the algorithm's runtime and correctness. \\
   \begin{algorithmic}[1]
+    \STATE \textbf{Phase 1}
     \STATE Let $I$ be the set of images such that $|I| = n$ \\
     \STATE Let $U$ be the set of unambiguous matches such that $|U| = m$ \\
     \FOR {$\forall i_x \in I$}
     \STATE Create a node $v_x$ corresponding to $i$ in graph $G$
     \ENDFOR
     \FOR {$\forall (i_x, i_y) \in U$}
-    \IF {The match returns "DIFFERENT"}
+    \IF {$i_x$ is DIFFERENT from $i_y$}
     \STATE Create an edge between the nodes $v_x$ and $v_y$ in graph $G$
     \ENDIF
     \ENDFOR
@@ -20,5 +21,73 @@
     \STATE Execute BFS starting at $s$ to generate subtree $t_j$
     \STATE $T = T \cup \{t_j\}$
     \ENDWHILE
+    \STATE \textbf{Phase 2}
+    \STATE Let the current color $c = 1$
+    \FOR {$\forall t_j \in T$}
+    \IF {$t_j$ has at least 1 edge}
+      \STATE Color all odd-number layered nodes in $t_j$ using color $c$
+      \STATE Color all even-number layered nodes in $t_j$ using color $c + 1$
+      \STATE $c = c + 2$
+    \ENDIF
+    \ENDFOR
+    \STATE \textbf{Phase 3}
+    \STATE Let $S = \emptyset$
+    \STATE Choose some arbitrary node which has an assigned color $c_x$
+    \STATE $S = S \cup \{c_x\}$
+    \FOR {$\forall (i_x, i_y) \in U \mid| c_x \in S$}
+    \IF {$i_x$ is the SAME as $i_y$}
+    \STATE Let $c_y$ be the color of $i_y$
+    \IF {$c_y$ is not defined}
+      \STATE $c_y = c + 1$
+      \STATE $c = c + 1$
+    \ENDIF
+    \STATE $S = S \cup \{c_y\}$
+    \STATE Remove $(i_x, i_y)$ from $U$
+    \ENDIF
+    \ENDFOR
+    \STATE \textbf{Phase 4}
+    \FOR {$i \in G$}
+    \IF {$c_i \in S$}
+    \STATE Label $i$ with A
+    \ELSE
+    \STATE Label $i$ with B
+    \ENDIF
+    \ENDFOR
   \end{algorithmic}
+  \textbf{Proof of runtime: }
+  \begin{proof}
+    The runtime of phase 1 is $O(2m + 2n)$, as the graph construction takes $O(m+n)$ time and BFS takes $O(m+n)$ time. \\
+    The runtime of phase 2 is $O(m+n)$, as the graph coloring can be done using a BFS-like algorithm. \\
+    The runtime of phase 3 is $O(m)$, as each unambiguous match is explored once. \\
+    The runtime of phase 4 is $O(n)$, as each node is explored once to label it. \\
+    The total runtime is therefore $O(2m + m + m + 2n + n + n) = O(4m + 4n) = O(m + n)$ \\
+  \end{proof}
+  \textbf{Lemma 1:} There must be no odd-length cycles in $G$.
+  \begin{proof}
+    Suppose there is an odd-length cycle in $G$.\\
+    This means $G$ is not 2-colorable. \\
+    This means there exists no way to label each image as either $A$ or $B$ fitting the conditions. \\
+  \end{proof}
+  \textbf{Lemma 2:} By the end of phase 3, precisely all of the colors which correspond to matching nodes (to the arbitrarily chosen color) must be part of $S$.
+  \begin{proof}
+    Suppose some color $c \in S, c$ is different from $c_i \in S$. \\
+    $\implies \exists (i_x, i_y) \in U \mid| c_x \ne c_y \land i_x$ and $i_y$ are the same by lines 30, 31 \\
+    $\implies c_x, c_y$ are the same \\
+    $\rightarrow$ contradiction. \\
+  \end{proof}
+  \textbf{Proof of correctness: }
+  \begin{proof}
+    By the end of phase 2, every node will be colored such that no node shares the same color with a node it is known to be different from. \\
+    Suppose some node is colored such that it shares the same color as a node it is different from. By lines 21 and 22, these nodes must be on the same layer of $T$. \\
+    By lemma 1, there must be no odd-length cycles in $T$. \\
+    If there are no odd-length cycles in $T$, there cannot exist a non-tree edge connecting two nodes in the same layer. \\
+    If there is no non-tree edge connecting two nodes in the same layer, by the definition of $T$ they cannot be different. \\
+    By lemma 2, at the end of phase 3, precisely all of the colors which correspond to matching nodes must be part of $S$.
+    During phase 4, all colors in $S$ are labeled A, so precisely all of those colors which match the arbitrarily chosen color from line 28 are labeled A. \\
+    The other nodes are all either known to be different from A, or are ambiguous to all other nodes, thus can safely be labeled B. \\
+    Suppose a node has not been assigned a color by the end of phase 3.
+    This node must not be different from any node by phase 2 lines 21-22. \\
+    This node must not be same as any node by phase 3 lines 33-35. \\
+    Thus, this node is ambiguous to every other node and can be safely colored using either A or B. \\
+  \end{proof}
 \end{problem}
