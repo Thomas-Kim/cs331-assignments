@@ -5,4 +5,18 @@
   \begin{align*}
     T_{G,s}^{B} \equiv T_{G,s}^{D} \implies G \text{ is acyclic}
   \end{align*}
+  \textbf{Lemma 1: }$T_{G,s}^{B} \equiv T_{G,s}^{D} \implies T_{G,s}^{B}$ has no non-tree edges.
+  \begin{proof}
+    Suppose vertices $v_1, v_2 \in T_{G,s}^{B}$ are connected by a non-tree edge $e$. \\
+    In DFS, either $v_1$ or $v_2$ must have been explored first, because vertices are explored in a strictly non-parallel fashion. \\
+    Let $v_p$ be the vertex which was explored first in DFS, and $v_c$ be the other vertex. \\
+    If $v_p$ was explored first, $v_c$ must not have been explored when $v_p$ was added to the DFS tree. \\
+    Since $v_c$ was not explored, the edge $e = (v_p, v_c)$ must be added to the DFS tree by the DFS algorithm. \\
+    $\therefore e \in T_{G,s}^{D} \land T_{G,s}^{B} \implies T_{G,s}^{B} \not\equiv T_{G,s}^{D}$ \\
+  \end{proof}
+  \begin{proof}
+    By lemma 1, $T_{G,s}^{B}$ has no non-tree edges. \\
+    This implies $T_{G,s}^{B} = G$ \\
+    By definition, if $G$ is a tree, $G$ is acyclic. \\
+  \end{proof}
 \end{problem}

@@ -2,4 +2,20 @@
   {Q1(b)}
   Let $T$ be a tree such that every node in $T$ has either 2 children or 0 children. If $T$ has $n \geq 1$ leaves, prove
   that the total number of nodes in $T$ is $2n-1$. \\
+  \begin{proof}
+    \textbf{Base case: } (n = 1) \\
+    The tree must have precisely 1 node, $2n - 1 = 2 - 1 = 1$. \\
+    Suppose the tree has more than 1 node. \\
+    By the definition of tree, the graph must be connected. \\
+    The tree has precisely 1 leaf $l \implies $ every other node must have 2 children. \\
+    Suppose $l$ is connected to $p$, which must have 2 children. \\
+    Each descendent of $p$ must have 2 children, meaning the tree must have an infinite number of nodes. \\
+    Contradiction \\
+    \textbf{Induction Hypothesis: } \\
+    Suppose a tree $T$ has $n$ leaves. \\
+    Remove 2 leaves with the same parent to form tree $T'$. \\
+    By the definition of a leaf, each leaf is connected to precisely 1 other node (parent). \\
+    By removing 2 leaves, precisely 2 edges are removed. \\
+    $\therefore$ the number of nodes in $T'$ is $2n - 3$. \\
+  \end{proof}
 \end{problem}
