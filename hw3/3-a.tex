@@ -1,0 +1,11 @@
+\begin{problem}
+  {Q3(a)}
+  Give an algorithm to find the minimum-product spanning tree.
+  \begin{algorithmic}[1]
+    \STATE Let $G(V,E)$ be the graph in question
+    \FOR {$\forall e \in E$}
+    \STATE $weight(e) = ln(weight(e))$
+    \ENDFOR
+    \STATE Run Prim's algorithm on the new graph $G'$
+  \end{algorithmic}
+\end{problem}
