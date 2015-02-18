@@ -8,4 +8,15 @@
     \ENDFOR
     \STATE Run Prim's algorithm on the new graph $G'$
   \end{algorithmic}
+  \textbf{Proof of correctness}
+  \begin{proof}
+    Note that by the problem, $w > 1$ \\
+    Restricting the domain to $(1, \infty), ln(x)$ is one-to-one and monotonically increasing \\
+    $ln(\prod_{i = 1}^{n}w_i) = \sum_{i = 1}^{n}ln(w_i)$ \\
+    So the sum of the modified weights is equal to the natural log of the product-weight. \\
+    Since $ln(x)$ is one-to-one and monotonically increasing for the domain of this problem, minimizing $\sum_{i = 1}^{n}ln(w_i)$ will minimize $\prod_{i = 1}^{n}w_i$ \\
+  \end{proof}
+  The time taken to change the weights of each edge is $O(m)$. \\
+  The time taken to run Prim's algorithm is $O(mlog(n))$. \\
+  Therefore, the total runtime is $O(mlog(n) + m) = O(mlog(n))$. \\
 \end{problem}

@@ -4,4 +4,20 @@
   \begin{align*}
     \forall e \in T, e \in T' \in \mathcal{T}_G \implies T \in \mathcal{T}_G
   \end{align*}
+  \textbf{Lemma 1}: Consider two MSTs which differ by 2 edges. These edges must be in the same cycle and must have the same weight.
+  \begin{proof}
+    Suppose these edges are not in the same cycle. Removing one of these edges would result in a disconnected graph, meaning the two MSTs are not trees. \\
+    Suppose edge $e$ has a greater weight than $e'$. Replace $e$ with $e'$, and the resulting tree has a smaller weight than the original tree, implying
+    the original tree was not an MST. \\
+  \end{proof}
+  \textbf{Main proof}:
+  \begin{proof}
+    Take $T' \in \mathcal{T}_G$. \\
+    For each edge $e \in T' \land e \not\in T$, find some $e' \in T$ s.t. $e'$ forms a cycle with $e$ and replace $e$ with $e'$. \\
+    Note that every edge $e' \not\in T'$ will form a cycle in $T'$ \\
+    By lemma 1, these replacements result in new MSTs. \\
+    Note that both $T$ and $T'$ must have $n-1$ edges because they are both trees. \\
+    The resulting transformation will transform $T'$ into $T$, as all edges $e \in T' \land e \not\in T$ have been replaced by
+    some edge $e' \in T$, and since both trees have the same number of edges to begin with they will end up with the same number of edges. \\
+  \end{proof}
 \end{problem}

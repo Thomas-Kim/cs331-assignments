@@ -1,9 +1,6 @@
 \begin{problem}
   {Q2(a)}
   Briefly explain which steps of Dijkstra's algorithm fail when a graph can have negative weight edges. \\\\
-  \textbf{Trivial cheating answer}: \\
-  Suppose some connected graph has a negative edge. The lowest-cost path between any two nodes is to infinitely cycle along the negative edge. \\
-  Dijkstra's algorithm only explores each node once, and therefore can never find the lowest cost path. \\
   \textbf{Actual answer}: \\
   Dijkstra's algorithm relies on a breadth-first search using a priority queue and stops execution when the goal is reached. \\
   The stopping of execution when the goal has been reached relies on the invariant that the current path is the shortest path found
