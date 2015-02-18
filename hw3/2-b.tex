@@ -5,10 +5,34 @@
   \begin{algorithmic}[1]
     \STATE Let $G(V,E)$ be an empty graph
     \FOR {$\forall (s_i, d_i, p_i, q_i)$}
-    \STATE Construct a vertex corresponding to the departure gate in $s_i,$ $d_{s_i}$
-    \STATE Construct a vertex corresponding to the arrival gate in $d_i,$ $a_{d_i}$
-    \STATE Construct a vertex corresponding to the departure gate in $d_i,$ $d_{d_i}$
-    \STATE Create a directed edge $e = (d_{s_i}, a_{d_i})$ with weight $q_i - p_i$
+    \STATE Create some vertex $v$ which corresponds to $s_i$
+    \STATE Create some vertex $v'$ which corresponds to $d_i$
+    \STATE Create a directed edge $e(v, v')$ with weight $q_i - p_i$
+    \STATE Create a mapping $f: e \rightarrow (q_i + 1)$
+    \STATE Create a mapping $g: e \rightarrow p_i$
+    \ENDFOR
+    \STATE Execute Dijkstra's algorithm starting at node $S$ and using $g(e)$ as the initial weight of any path starting with edge $e$
+    \STATE Dovetail the following steps in between iterations of Dijkstra's algorithm.
+    \FOR {$\forall e \in $current cutset}
+    \IF {$f(e) > g(e)$}
+    \STATE Remove $e$ from the graph
+    \ENDIF
     \ENDFOR
   \end{algorithmic}
+  \textbf{Runtime}\\
+  The graph creation will explore every flight once, resulting in a complexity of $O(m)$. \\
+  The additional steps in this algorithm will explore every node precisely once, so the complexity is $O(m)$. \\
+  The runtime of this algorithm is $O(mlog(n))$ from Dijkstra's and $O(2m)$ from the additional steps. \\
+  Therefore, the total runtime is $O(mlog(n))$ \\
+  \textbf{Correctness}
+  \begin{proof}
+    An invalid edge is defined to be an edge where $q_i$ for an incoming flight and $p_i$ for an outgoing connection fulfill $p_i < q_i + 1$ \\
+    By lines 6, 7, 12, the algorithm will delete such edges before they are explored by Dijkstra's algorithm. \\
+    Each edge represents the total amount of time spent on the flight plus 1h overhead for connections. \\
+    The initial weight (time) of any path is given to be the departure time of the edge explored. \\
+    This means the lowest weight path will have the minimal time difference from $t=0$. \\
+    Since there are no negative weight edges (time cannot be negative), Dijkstra's algorithm will successfully find the min weight path. \\
+    This min weight path has the minimal time difference from $t=0$. \\
+    This means the arrival time with respect to $t=0$ will be minimized. \\
+  \end{proof}
 \end{problem}
