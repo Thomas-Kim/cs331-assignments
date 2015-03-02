@@ -1,5 +1,62 @@
 \begin{problem}
   {Q1}
   Given $n$ samples and unambiguous ImgComp, design a divide and conquer algorithm which can report whether more than
-  $50\%$ of samples belong to a single class. Prove correctness and runtime. \\
+  $50\%$ of samples belong to a single class. Prove correctness and runtime. \\\\
+  \noindent
+  $main$
+  \begin{algorithmic}[1]
+      \STATE $S' = \text{signal-to-noise}(S)$
+      \IF {$\frac{|S'|}{|S|} > .5$}
+      \RETURN $"YES"$
+      \ELSE
+      \RETURN $"NO"$
+      \ENDIF
+  \end{algorithmic}
+  \noindent
+  $\text{signal-to-noise}(S)$
+  \begin{algorithmic}[1]
+      \STATE Let $S := \{s_1, s_2, \dots, s_n\}$ be the set of images used as input to ImgComp
+      \STATE Let $A := \{s_1, s_2, \dots, s_\frac{n}{2}\}, B = S - A$
+      \IF {$|A| = |B| = 1 \land ImgComp(s_1, s_2) = "YES"$}
+      \RETURN $\{s_1, s_2\}$
+      \ELSIF {$|A| = |B| = 1 \land ImgComp(s_1, s_2) = "NO"$}
+      \RETURN $\{s_1\}$
+      \ELSE
+      \STATE $A' := \text{signal-to-noise}(A)$
+      \STATE $B' := \text{signal-to-noise}(B)$
+      \STATE $A'' := A'$
+      \STATE $B'' := B'$
+      \FOR  {$\forall b_i \in B$}
+      \IF {$ImgComp(a_1, b_i) = "YES"$}
+      \STATE $B'' := B'' \cup \{b_i\}$
+      \ENDIF
+      \ENDFOR
+      \FOR {$\forall a_i \in A$}
+      \IF {$ImgComp(b_1, a_i) = "YES"$}
+      \STATE $A'' := A'' \cup \{a_i\}$
+      \ENDIF
+      \ENDFOR
+      \RETURN $max(A'', B'')$
+      \ENDIF
+  \end{algorithmic}
+  \noindent
+  \textbf{Proof of correctness}
+  \begin{proof}
+    Claim: If more than $50\%$ of $S$ belongs to one set $C$, $a \in A' \land a \in C \lor b \in B' \land b \in C$ and $\text{signal-to-noise}(S)$ will return $C$ \\
+    Base case: $|S| = 4, |A| = |B| = 2$ \\
+    Suppose more than 50\% of $S$ belongs to some category $C$. This means $|C| > \frac{S}{2} \implies |C| > 2$. \\
+    By the pigeonhole principle (either $A$ or $B$ will get a matching pair because at least 3 out of 4 match and there are 2 subsets), $|A'| = 2 \lor |B'| = 2$. \\
+    Without loss of generality, suppose $|A'| = 2$. If $A'$ does not contain some $a \in C$, then $|C| \leq |S - A'| = 2 \implies $ contradiction. \\
+    Given the correctness of $A'$ and/or $B'$, lines 12, 17, 22 will return some set $R \mid| |R| \geq |A| \implies R = C$\\
+    Induction: \\
+    Suppose $a \in A' \land b \in B' \land A' \cap C = \{\} \land B' \cap C = \{\}$ \\
+  \end{proof}
+  \noindent
+  \textbf{Proof of Runtime}
+  \begin{proof}
+    $\text{signal-to-noise}(S)$ creates 2 subproblems of size $\frac{n}{2}$ by line \\%TODO
+    $\text{signal-to-noise}(S)$ calls $ImgComp$ $n$ times by lines , since $|A'| \leq |A| = \frac{n}{2} \land |B'| \leq |B| = \frac{n}{2}$\\%TODO
+    Therefore, the recurrence for $\text{signal-to-noise}(S)$ is $T(n) = 2T(\frac{n}{2}) + \theta(n)$
+    By master theorem, $f(n) = \theta(n) = \theta(n^1log^0(n)) \implies T(n) = \theta(nlog(n))$
+  \end{proof}
 \end{problem}
