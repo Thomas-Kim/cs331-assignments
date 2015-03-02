@@ -50,12 +50,12 @@
     Given the correctness of $A'$ and/or $B'$, lines 12, 17, 22 will return some set $R \mid| |R| \geq |A| \implies R = C$\\
     Induction: \\
     Suppose $a \in A' \land b \in B' \land A' \cap C = \{\} \land B' \cap C = \{\}$ \\
-    Claim: If $C$ exists, $|A'| \geq \frac{|A|}{2} \lor |B'| \geq \frac{|B|}{2}$
-    Suppose the opposite was true. The maximal subset $S' \in S$ such that $S'$ contains matching elements would be bounded by $|S'| < \frac{|A|}{2} + \frac{|B|}{2} = \frac{|S|}{2}$
-    Without loss of generality, suppose $\text{signal-to-noise}(A)$ returned $A' \mid| |A'| \geq \frac{|A|}{2} = \frac{|S|}{4}$
-    Note that $A'$ must contain some element $a \in C$, because if it didn't, $|C| \leq 2 \cdot \frac{|A|}{2} \implies |C| \leq \frac{|S|}{4}$
-    Note that $A - A' \cup C = \{\}$, because if some $a \in A \land a \not\in A' \in C \land a' \in A' \in C, a \in A'$
-    By line 12, $A'' = C$, because the algorithm loops through $B$ and by the previous note, $A - A' \cup C = \{\}$
+    Claim: If $C$ exists, $|A'| \geq \frac{|A|}{2} \lor |B'| \geq \frac{|B|}{2}$ \\
+    Suppose the opposite was true. The maximal subset $S' \in S$ such that $S'$ contains matching elements would be bounded by $|S'| < \frac{|A|}{2} + \frac{|B|}{2} = \frac{|S|}{2}$ \\
+    Without loss of generality, suppose $\text{signal-to-noise}(A)$ returned $A' \mid| |A'| \geq \frac{|A|}{2} = \frac{|S|}{4}$ \\
+    Note that $A'$ must contain some element $a \in C$, because if it didn't, $|C| \leq 2 \cdot \frac{|A|}{2} \implies |C| \leq \frac{|S|}{4}$ \\
+    Note that $A - A' \cup C = \{\}$, because if some $a \in A \land a \not\in A' \in C \land a' \in A' \in C, a \in A'$ \\
+    By line 12, $A'' = C$, because the algorithm loops through $B$ and by the previous note, $A - A' \cup C = \{\}$ \\
     Finally, if the largest subset $S' \subset S \mid| \frac{|S'|}{|S|} \leq \frac{1}{2}$, the algorithm will return false by line 5 of main and lines 13 and 18 of $\text{signal-to-noise}(S)$. \\
   \end{proof}
   \noindent
@@ -63,7 +63,7 @@
   \begin{proof}
     $\text{signal-to-noise}(S)$ creates 2 subproblems of size $\frac{n}{2}$ by lines 2, 8, 9 \\
     $\text{signal-to-noise}(S)$ calls $ImgComp$ $n$ times by lines 12, 17, since $|A'| \leq |A| = \frac{n}{2} \land |B'| \leq |B| = \frac{n}{2}$\\
-    Therefore, the recurrence for $\text{signal-to-noise}(S)$ is $T(n) = 2T(\frac{n}{2}) + \theta(n)$
-    By master theorem, $f(n) = \theta(n) = \theta(n^1log^0(n)) \implies T(n) = \theta(nlog(n))$
+    Therefore, the recurrence for $\text{signal-to-noise}(S)$ is $T(n) = 2T(\frac{n}{2}) + \theta(n)$ \\
+    By master theorem, $f(n) = \theta(n) = \theta(n^1log^0(n)) \implies T(n) = \theta(nlog(n))$ \\
   \end{proof}
 \end{problem}
