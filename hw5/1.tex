@@ -6,9 +6,23 @@
 
   Each week's supply can be carried by one of two air freight companies, A or B.
   \begin{itemize}
-    \item Company A charges a fixed rate $r$ per pound (so it costs $r \cdot s_i$ to ship a week's supply $s_i$
+    \item Company A charges a fixed rate $r$ per pound (so it costs $r \cdot s_i$ to ship a week's supply $s_i$)
     \item Company B makes contracts for a fixed amount $c$ per week, independent of the weight.
           However, contracts with company B must be made in blocks of four consecutive weeks at a time.
   \end{itemize}
   Give a polynomial-time algorithm that takes a sequence of supply values $s_1, s_2, \dots, s_n$ and returns a $schedule$ of minimum cost.
+  $Ship(i)$
+  \begin{algorithmic}[1]
+      \IF {$i \leq 0$}
+      \RETURN $0$
+      \ENDIF
+      \RETURN $min(rs_i + Ship(i-1), 4c + Ship(i-4))$
+  \end{algorithmic}
+  \noindent
+  \textbf{Correctness}:
+  \begin{proof}
+  \end{proof}
+  \textbf{Runtime}:
+  \begin{proof}
+  \end{proof}
 \end{problem}

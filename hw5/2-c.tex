@@ -1,4 +1,31 @@
 \begin{problem}
   {Q2}
-  Assume $C = 1, 2, \dots, 2^m$ and $N < 2^{m+1}$. For this special case, give an $O(m)$ time algorithm that solves the problem in (a).
+  Assume $C = 1, 2, 4, \dots, 2^m$ and $N < 2^{m+1}$. For this special case, give an $O(m)$ time algorithm that solves the problem in (a). \\
+  \begin{algorithmic}[1]
+    \STATE $count = 0$
+    \STATE Express $N$ as a binary number $n_1n_2n_3\dots n_k$
+    \FOR {$1 \leq i \leq 2^m$}
+    \IF {$n_i = 1$}
+    \STATE $count := count + 1$
+    \ENDIF
+    \ENDFOR
+  \end{algorithmic}
+  \noindent
+  \textbf{Correctness}
+  \begin{proof}
+      Thm: For every element $x \in Q_p$, where $Q_p$ is a field of $p-adic$ integers,
+      there exists a unique representation $x = \sum_{i = 0}^{k} a_ip^i, a_k \neq 0$ \\
+      By expressing $N$ as a 2-adic integer, it is guaranteed that there exists some
+      representation of $N$ in the form shown above. \\
+      Note that $k$ in the above sum is bounded by $k < m+1$, since $2^{m+1} > N$ \\
+      $\forall 0 \leq i \leq m, 2^i \in C$
+      Therefore, there exists a unique representation of $N$ as a sum of the elements in $C$.
+  \end{proof}
+  \noindent
+  \textbf{Runtime}
+  \begin{proof}
+      Expressing $N$ as a binary number is $O(m)$ time, since $N$ expressed in binary has at most $m$ digits. \\
+      Counting the $1$'s in the binary representation of $N$ takes $O(m)$ time, for the above reason.\\
+      The complexity is therefore $O(2m) = O(m)$
+  \end{proof}
 \end{problem}

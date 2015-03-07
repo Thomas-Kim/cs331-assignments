@@ -2,4 +2,22 @@
   {Q2(a)}
   Assume that you have to make change for $N$, and that you have an infinite supply of each $C = c_1, c_2, \dots, c_n$ valued coins where $1 \leq c_i \leq N-1$.
   Compute the minimum number of coins required to make the change. Provide an algorithm which solves the problem using dynamic programming, prove correctness and runtime.
+  $Change(C, N)$
+  \begin{algorithmic}[1]
+      \STATE $C = c_1, c_2, \dots, c_k$
+      \IF {$C = \{\}$}
+      \RETURN $INVALID$
+      \ENDIF
+      \IF {$N = 0$}
+      \RETURN $0$
+      \ENDIF
+      \RETURN $min(Change(C - \{c_k\}, N), 1 + Change(C, N-c_n))$
+  \end{algorithmic}
+  \noindent
+  \textbf{Proof of correctness}
+  \begin{proof}
+  \end{proof}
+  \textbf{Proof of runtime}
+  \begin{proof}
+  \end{proof}
 \end{problem}

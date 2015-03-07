@@ -2,4 +2,24 @@
   {Q2(b)}
   Solve the same problem, but this time assume you have a limited supply $p_i$ of each coin $c_i$
   Provide a dynamic programming algorithm, do not prove correctness or runtime.
+  $Setup(C)$
+  \begin{algorithmic}[1]
+      \STATE $C' = \emptyset$
+      \FOR {$\forall c_i \in C$}
+      \STATE $c_{i,1}, c_{i, 2}, \dots, c_{i, p_i} = c_i$
+      \STATE $C' = C' \cup \{c_{i, 1}, c_{i, 2}, \dots, c_{i, p_i}\}$
+      \ENDFOR
+  \end{algorithmic}
+  $Change(C, N)$
+  \begin{algorithmic}[1]
+      \STATE $C = c_1, c_2, \dots, c_k$
+      \IF {$C = \{\}$}
+      \RETURN $INVALID$
+      \ENDIF
+      \IF {$N = 0$}
+      \RETURN $0$
+      \ENDIF
+      \RETURN $min(Change(C - \{c_k\}, N), 1 + Change(C - \{c_k\}, N-c_n))$
+  \end{algorithmic}
+  The solution is $Change(Setup(C), N)$
 \end{problem}
