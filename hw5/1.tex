@@ -13,16 +13,26 @@
   Give a polynomial-time algorithm that takes a sequence of supply values $s_1, s_2, \dots, s_n$ and returns a $schedule$ of minimum cost.
   $Ship(i)$
   \begin{algorithmic}[1]
-      \IF {$i \leq 0$}
+      \IF {$i = 0$}
       \RETURN $0$
+      \ENDIF
+      \IF {$i < 0$}
+      \RETURN $INVALID$
       \ENDIF
       \RETURN $min(rs_i + Ship(i-1), 4c + Ship(i-4))$
   \end{algorithmic}
   \noindent
   \textbf{Correctness}:
   \begin{proof}
+    The schedule of using only Company A is explored by this algorithm. \\
+    At every step of that schedule, the algorithm explores the possibility of using Company B. \\
+    Therefore, the entire space of possible schedules is explored by the algorithm. \\
+    By the last line of the algorithm, it will find the minimum cost schedule in the space of explored schedules. \\
   \end{proof}
   \textbf{Runtime}:
   \begin{proof}
+      $Ship$ could possibly be computed for $n$ different values of $i$. \\
+      Computing $Ship(i)$ will use two constant time lookups for $Ship(i-1)$ and $Ship(i-4)$ \\
+      Therefore the worst case complexity is $O(n)$ \\
   \end{proof}
 \end{problem}

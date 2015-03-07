@@ -1,5 +1,33 @@
 \begin{problem}
   {Q3}
   An opportunity cycle is one where the product of the ratios along the cycle is greater than 1.
-  Give a polynomial-time algorithm to find an opportunity cycle in a graph, if one exists.
+  Give a polynomial-time algorithm to find an opportunity cycle in a graph, if one exists. \\
+  \begin{algorithmic}[1]
+    \STATE Let $G(V,E)$ be the graph of possible trades
+    \STATE Let $w(e_i)$ be the weight of edge $e_i \in E$
+    \STATE Let $G'(V', E') | V' = V$
+    \FOR {$\forall e_i(u, v) \in E$}
+    \STATE $e_i' = (u, v) | w(e_i') = -log(w(e_i))$
+    \STATE $E' = E' \cup \{e_i'\}$
+    \ENDFOR
+    \FOR {$\forall v' \in V'$}
+    \STATE Run Bellman-Ford on $G'$ starting on $v'$ to detect negative cycles, return TRUE if one is detected
+    \ENDFOR
+  \end{algorithmic}
+  \noindent
+  \textbf{Correctness}:
+  \begin{proof}
+      Suppose there is some cycle $e_1, e_2, \dots, e_k$ such that $\Pi_{i = 1}^{k}e_i > 1$
+      $log\left(\Pi_{i = 1}^{k}e_i\right) > log(1)$ \\
+      $\implies \sum_{i = 1}^{k} log(e_i) > 0$ \\
+      $\implies \sum_{i = 1}^{k} -log(e_i) < 0$ \\
+      Therefore, by line , a negative cycle corresponds to an opportunity cycle%TODO
+  \end{proof}
+  \textbf{Runtime}:
+  \begin{proof}
+      Constructing $G'$ takes $O(|V| + |E|)$ time.  \\
+      Running Bellman-Ford takes $O(|V||E|)$ time.  \\
+      Bellman-Ford is run $|V|$ times. \\
+      Therefore, the total complexity is $O(|V|^2|E|)$ which is polynomial in the number of vertices/edges.
+  \end{proof}
 \end{problem}
