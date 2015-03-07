@@ -1,0 +1,14 @@
+\begin{problem}
+  {Q1}
+  Suppose you're consulting for a company that manufactures PC equipment and ships it to distributors all over the country.
+  For each of the next $n$ weeks, they have a projected $supply s_i$ of equipment (measured in pounds), which has to be shipped
+  by an air freight carrier.
+
+  Each week's supply can be carried by one of two air freight companies, A or B.
+  \begin{itemize}
+    \item Company A charges a fixed rate $r$ per pound (so it costs $r \cdot s_i$ to ship a week's supply $s_i$
+    \item Company B makes contracts for a fixed amount $c$ per week, independent of the weight.
+          However, contracts with company B must be made in blocks of four consecutive weeks at a time.
+  \end{itemize}
+  Give a polynomial-time algorithm that takes a sequence of supply values $s_1, s_2, \dots, s_n$ and returns a $schedule$ of minimum cost.
+\end{problem}
