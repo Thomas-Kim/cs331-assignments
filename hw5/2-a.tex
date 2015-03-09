@@ -2,25 +2,39 @@
   {Q2(a)}
   Assume that you have to make change for $N$, and that you have an infinite supply of each $C = c_1, c_2, \dots, c_n$ valued coins where $1 \leq c_i \leq N-1$.
   Compute the minimum number of coins required to make the change. Provide an algorithm which solves the problem using dynamic programming, prove correctness and runtime.
-  $Change(C, N)$
+  $OPT(C, N)$
   \begin{algorithmic}[1]
       \STATE $C = c_1, c_2, \dots, c_k$
-      \IF {$C = \{\}$}
+      \IF {$C = \{\} \land N \neq 0 $}
       \RETURN $INVALID$
       \ENDIF
       \IF {$N = 0$}
-      \RETURN $0$
+      \RETURN $1$
       \ENDIF
-      \RETURN $min(Change(C - \{c_k\}, N), 1 + Change(C, N-c_n))$
+      \IF {$N < 0$}
+      \RETURN $INVALID$
+      \ENDIF
+      \RETURN $min(OPT(C - \{c_k\}, N), 1 + OPT(C, N-c_k))$
   \end{algorithmic}
   \noindent
   \textbf{Proof of correctness}
   \begin{proof}
+      Suppose some particular combination of coins $C'$ is not explored. \\
+      Let $C' = \{c_{1, 1}, \dots, c_{1, k_1}, \dots, c_{j, k_j}\}$ where the second subscript of each coin describes the individual instance of coin being used. \\
+      Consider the following execution: \\
+      First, $OPT$ line 11 uses case 2 $k_j$ times. \\
+      Next, $OPT$ line 11 uses case 1. \\
+      Next, $OPT$ line 11 uses case 2 $k_{j-1}$ times. \\
+      Next, $OPT$ line 11 uses case 1. \\
+      This repeats until all coins in $C'$ have been used. \\
+      During this execution, the combination of coins $C'$ has been explored. \\
+      This contradicts the original assumption.
   \end{proof}
+  \noindent
   \textbf{Proof of runtime}
   \begin{proof}
       There are $n$ subsets of $C$ and $N$ values of $N$ which could be computed. \\
-      We see that $Change$ could be computed $N^2$ times in the worst case, since $1 \leq c_i \leq N-1$ \\
+      We see that $OPT$ could be computed $N^2$ times in the worst case, since $1 \leq c_i \leq N-1$ \\
       Therefore the worst case runtime of this algorithm is $O(N^2)$, which is polynomial in $N$. \\
   \end{proof}
 \end{problem}

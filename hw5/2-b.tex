@@ -10,16 +10,19 @@
       \STATE $C' = C' \cup \{c_{i, 1}, c_{i, 2}, \dots, c_{i, p_i}\}$
       \ENDFOR
   \end{algorithmic}
-  $Change(C, N)$
+  $OPT(C, N)$
   \begin{algorithmic}[1]
       \STATE $C = c_1, c_2, \dots, c_k$
-      \IF {$C = \{\}$}
+      \IF {$C = \{\} \land N \neq 0 $}
       \RETURN $INVALID$
       \ENDIF
       \IF {$N = 0$}
-      \RETURN $0$
+      \RETURN $1$
       \ENDIF
-      \RETURN $min(Change(C - \{c_k\}, N), 1 + Change(C - \{c_k\}, N-c_n))$
+      \IF {$N < 0$}
+      \RETURN $INVALID$
+      \ENDIF
+      \RETURN $min(OPT(C - \{c_k\}, N), 1 + OPT(C - \{c_k\}, N-c_n))$
   \end{algorithmic}
-  The solution is $Change(Setup(C), N)$
+  The solution is $OPT(Setup(C), N)$
 \end{problem}
