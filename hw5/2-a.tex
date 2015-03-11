@@ -17,6 +17,12 @@
       \RETURN $min(OPT(C - \{c_k\}, N), 1 + OPT(C, N-c_k))$
   \end{algorithmic}
   \noindent
+  \textbf{Memoization}
+  Store a collection of $k$ sparse arrays containing $OPT(C, N)$ \\
+  Choose the array by keeping track of the number of elements in $C$, which can be done in amortized constant time. \\
+  This is achieved by counting during the first iteration and keeping track of it through successive calls to $OPT$. \\
+  Choose the index into the array using $N$, so the total lookup is amortized constant time. \\
+  \noindent
   \textbf{Proof of correctness}
   \begin{proof}
       Suppose some particular combination of coins $C'$ is not explored. \\

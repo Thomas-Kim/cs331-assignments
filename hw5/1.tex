@@ -11,7 +11,7 @@
           However, contracts with company B must be made in blocks of four consecutive weeks at a time.
   \end{itemize}
   Give a polynomial-time algorithm that takes a sequence of supply values $s_1, s_2, \dots, s_n$ and returns a $schedule$ of minimum cost.
-  $Ship(i)$
+  $OPT(i)$
   \begin{algorithmic}[1]
       \IF {$i = 0$}
       \RETURN $0$
@@ -19,8 +19,12 @@
       \IF {$i < 0$}
       \RETURN $INVALID$
       \ENDIF
-      \RETURN $min(rs_i + Ship(i-1), 4c + Ship(i-4))$
+      \RETURN $min(rs_i + OPT(i-1), 4c + OPT(i-4))$
   \end{algorithmic}
+  \noindent
+  \textbf{Memoization}:
+  Store an array of $[OPT(0), OPT(1), \dots, OPT(n)]$ \\
+  Each element can be accessed in constant time by hashing based on $i$
   \noindent
   \textbf{Correctness}:
   \begin{proof}
@@ -29,10 +33,11 @@
     Therefore, the entire space of possible schedules is explored by the algorithm. \\
     By the last line of the algorithm, it will find the minimum cost schedule in the space of explored schedules. \\
   \end{proof}
+  \noindent
   \textbf{Runtime}:
   \begin{proof}
-      $Ship$ could possibly be computed for $n$ different values of $i$. \\
-      Computing $Ship(i)$ will use two constant time lookups for $Ship(i-1)$ and $Ship(i-4)$ \\
+      $OPT$ could possibly be computed for $n$ different values of $i$. \\
+      Computing $OPT(i)$ will use two constant time lookups for $OPT(i-1)$ and $OPT(i-4)$ \\
       Therefore the worst case complexity is $O(n)$ \\
   \end{proof}
 \end{problem}
