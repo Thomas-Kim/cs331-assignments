@@ -7,5 +7,29 @@
       \sum_{a_i \in P} a_i = \sum_{a_i \in Q} a_i = \sum_{a_i \in R} a_i
   \end{align*}
   \noindent
-  $OPT(n)$
+  \textbf{Memoization}
+  \begin{algorithmic}[1]
+    \STATE Let the set of integers $a_1, \dots, a_n$ be denoted $A$
+    \STATE Let the minimum element $a_i \in A$ be denoted $min(A)$
+    \STATE Let the sum of all elements $a_1, \dots, a_n$ be denoted $sum(A)$
+    \STATE Create a table of dimension $min(A)$ by $sum(A)$
+    \STATE Each element of the table $e_{j, k}$ stores whether there exists a partition such that
+           $\sum_{a_i \in P} a_i = j \land \sum_{a_i \in Q} a_i = k$
+  \end{algorithmic}
+  \noindent
+  \textbf{Algorithm}
+  $OPT(i, j, k)$
+  \begin{algorithmic}[1]
+    \STATE Let $A' := \{a_i, a_{i+1}, \dots, a_n\}$
+    \IF {$j = k = 0 \land i = n+1$}
+    \STATE Fill in the table entry for coordinates $(j, k)$ to be true
+    \RETURN TRUE
+    \ELSIF {$j \leq 0 \land k \leq 0 \land i \neq n+1$}
+    \STATE Fill in the table entry for coordinates $(j, k)$ to be false
+    \RETURN FALSE
+    \ENDIF
+    \RETURN $OPT(i+1, j-a_i, k) \lor OPT(i+1, j, k-a_i)$
+  \end{algorithmic}
+  Call $OPT(1, \frac{sum(A)}{3}, \frac{sum(A)}{3})$ \\
+  This algorithm is pseudopolynomial in $n$ \\
 \end{problem}

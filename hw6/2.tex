@@ -4,5 +4,18 @@
   the number of possible n element sets $\{x_1, \dots , x_n\}$ for which $\sum_i x_i^2 = W$ where each
   $x_i$ is a nonnegative integer.
   \noindent
-  $OPT(n)$
+  \textbf{Memoization}
+  \begin{algorithmic}[1]
+    \STATE Create an $n$ by $W$ table
+    \STATE Each element $(j, k)$ of the table will hold the number of unique $j$ element sets for which $\sum_i x_i^2 = k$
+  \end{algorithmic}
+  \textbf{Algorithm}
+  $OPT(i, j, k)$
+  \begin{algorithmic}[1]
+    \IF {$i = 0$}
+    \RETURN 0
+    \ENDIF
+    \RETURN $OPT(i-1, j-1, k-i^2) + OPT(i-1, j, k)$
+  \end{algorithmic}
+  Call $OPT(0, n, W)$
 \end{problem}
