@@ -12,7 +12,9 @@
   \textbf{Algorithm}
   $OPT(i, j, k)$
   \begin{algorithmic}[1]
-    \IF {$i = 0$}
+    \IF {$j = 0 \land k = 0$}
+    \RETURN 1
+    \ELSIF {$i = 0 \lor j < 0 \lor k < 0$}
     \RETURN 0
     \ENDIF
     \RETURN $OPT(i-1, j-1, k-i^2) + OPT(i-1, j, k)$
@@ -20,9 +22,17 @@
   Call $OPT(0, n, W)$ \\
   \textbf{Correctness}
   \begin{proof}
+    For each value of $i$, a value $i^2$ can either be used or not used. \\
+    Both are explored by line 6 of the algorithm \\
+    Therefore the entire solution space is explored. \\
+    Solutions requiring more or fewer than $n$ elements are discarded by line 3 \\
+    Solutions which require precisely $n$ elements are accepted by line 1 \\
   \end{proof}
   \noindent
   \textbf{Runtime}
   \begin{proof}
+      At worst, the entire table is filled. \\
+      The table has $nW$ elements \\
+      Therefore, the algorithm is pseudopolynomial in $n$ \\
   \end{proof}
 \end{problem}

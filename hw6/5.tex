@@ -37,9 +37,25 @@
   \noindent
   \textbf{Correctness}
   \begin{proof}
+      The sum of all the edge capacities leaving $s$ is $n$ \\
+      If some client $c_i$ cannot be connected to a base station, it is either out of range or overloaded for all base stations. \\
+      If it is out of range, there exists no edge between $c_i$ and $b_i$, so there can be no flow between them. \\
+      If it is overloaded, no flow can go from $c_i$ to any $b_i$ \\
+      Therefore the maximum flow will be less than $n$, as there is no other path from $c_i$ to $t$ by construction. \\
+      Therefore, the algorithm will never return false positives. \\
+      Suppose Ford-Fulkerson returns $f = n$ when there exists no matching. \\
+      This means that some client $c_i$ cannot connect to any base station $b_i$. \\
+      However, there exists some $b_i$ that $c_i$ connected to the Ford-Fulkerson algorithm. \\
+      By line $14$, $b_i$ is connected to at most $L_{b_i}$ clients. \\
+      This means $b_i$ has enough capacity to accept $c_i$. \\
+      By line $11$, $b_i$ is in range. \\
+      Contradiction. \\
+      Therefore, the algorithm returns no false positives and no false negatives. \\
   \end{proof}
   \noindent
   \textbf{Runtime}
   \begin{proof}
+      The graph construction takes $n + k$ (polynomial) time, and Ford-Fulkerson runs in polynomial time. \\
+      Therefore, the total runtime is polynomial. \\
   \end{proof}
 \end{problem}

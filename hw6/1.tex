@@ -11,8 +11,9 @@
   \begin{algorithmic}[1]
     \STATE Let the set of integers $a_1, \dots, a_n$ be denoted $A$
     \STATE Let the minimum element $a_i \in A$ be denoted $min(A)$
+    \STATE Let the maximum element $a_i \in A$ be denoted $max(A)$
     \STATE Let the sum of all elements $a_1, \dots, a_n$ be denoted $sum(A)$
-    \STATE Create a table of dimension $min(A)$ by $sum(A)$
+    \STATE Create a table of dimension $|n * min(A)|$ by $|n * max(A)|$
     \STATE Each element of the table $e_{j, k}$ stores whether there exists a partition such that
            $\sum_{a_i \in P} a_i = j \land \sum_{a_i \in Q} a_i = k$
   \end{algorithmic}
@@ -20,22 +21,34 @@
   \textbf{Algorithm}
   $OPT(i, j, k)$
   \begin{algorithmic}[1]
+    \IF {$j \neg\in \mathbb{Z} \lor k \neg\in \mathbb{Z}$}
+    \RETURN FALSE
+    \ENDIF
     \STATE Let $A' := \{a_i, a_{i+1}, \dots, a_n\}$
     \IF {$j = k = 0 \land i = n+1$}
     \STATE Fill in the table entry for coordinates $(j, k)$ to be true
     \RETURN TRUE
-    \ELSIF {$j \leq 0 \land k \leq 0 \land i \neq n+1$}
+    \ELSIF {$j \neq 0 \land k \neq 0 \land i = n+1$}
     \STATE Fill in the table entry for coordinates $(j, k)$ to be false
     \RETURN FALSE
     \ENDIF
-    \RETURN $OPT(i+1, j-a_i, k) \lor OPT(i+1, j, k-a_i)$
+    \RETURN $OPT(i+1, j-a_i, k) \lor OPT(i+1, j, k-a_i) \lor OPT(i+1, j, k)$
   \end{algorithmic}
   Call $OPT(1, \frac{sum(A)}{3}, \frac{sum(A)}{3})$ \\
   \textbf{Correctness}
   \begin{proof}
+      The last line of the algorithm explores putting $a_i$ in $P$, $Q$, and $R$ in the three cases, respectively. \\
+      This is repeated for every $1 \leq i \leq n$ by lines 5 and 8 \\
+      By the problem definition, each $a_i$ must go in $P$, $Q$, or $R$. \\
+      Furthermore, $j$ and $k$ cannot be any smaller than the maximum subset of $A$, $MAX$ or bigger than the minimum subset of $A$, $MIN$ \\
+      This follows naturally since $j - \sum a_i$ cannot be smaller than $\frac{sum(A)}{3} - sum(MAX)$ or bigger than $\frac{sum(A)}{3} + sum(MIN)$ \\
+      Now we observe $sum(MAX) \leq max(A) * |MAX| \leq max(A) * n \land sum(MIN) \geq min(A) * |MIN| \geq min(A) * n$
+      Therefore, the entire space of solutions is explored and the table is big enough. \\
   \end{proof}
   \noindent
-  \textbf{Runtime}
-  \begin{proof}
-  \end{proof}
+  %\textbf{Runtime}
+  %\begin{proof}
+  %    In the worst case, the algorithm will have to fill in every (sort of*) square in the memoized table. \\
+  %\end{proof}
+  %* Due to programmer laziness, the table is too big and most of the table will be left uncomputed. \\
 \end{problem}
