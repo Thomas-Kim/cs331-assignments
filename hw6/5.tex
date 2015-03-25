@@ -10,4 +10,36 @@
   \end{itemize}
   Your goal is to design a polynomial-time algorithm for the following problem. Given the positions of a set of clients and a set of base stations, as well as the range and load parameters, decide
   whether every client can be connected simultaneously to a base station, subject to the range and load conditions in the previous paragraph.
+  \begin{algorithmic}[1]
+    \STATE Create a graph $G(V, E)$
+    \STATE Let some edge $e(a, b)_w$ be a directed edge from $a$ to $b$ with weight $w$
+    \STATE Let the set of clients be denoted $C = \{c_1, c_2, \dots, c_n\}$
+    \STATE Let the set of base stations be denoted $B = \{b_1, b_2, \dots, b_n\}$
+    \STATE Define the function $valid(c_i)$ to return some set $B' = \{b'_1, b'_2, \dots, b'_n\} \subset B$ such that $c_i$ is within range $\forall b_i \in B'$
+    \STATE $V = \{s, t, c_1, c_2, \dots, c_n, b_1, b_2, \dots, b_n\}$
+    \STATE Initially $E = \{\}$
+    \FOR {$\forall v_i \in V$}
+    \IF {$v_i \in C$}
+    \STATE $B' = valid(v_i)$
+    \STATE $E = E \cup \{(s, v_i)_1, (v_i, b'_1)_1, \dots, (v_i, b'_n)_1\}$
+    \ENDIF
+    \IF {$v_i \in B$}
+    \STATE $E = E \cup \{(b_i, t)_{L_{b_i}}\}$
+    \ENDIF
+    \ENDFOR
+    \STATE Run Ford-Fulkerson on $G$ to find maximum flow $f$
+    \IF {$f = n$}
+    \RETURN TRUE
+    \ELSE
+    \RETURN FALSE
+    \ENDIF
+  \end{algorithmic}
+  \noindent
+  \textbf{Correctness}
+  \begin{proof}
+  \end{proof}
+  \noindent
+  \textbf{Runtime}
+  \begin{proof}
+  \end{proof}
 \end{problem}
