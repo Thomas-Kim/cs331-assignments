@@ -50,6 +50,7 @@ Input: $n$, $\{b_1, \dots, b_n\}$, $L_1, \dots, L_n$
         This is modeled by the fact that $d'_i$ either sends flow directly to $m(b_i)$ (no change) or $d_i$ (must change by line 8) \\
         Since the algorithm is guaranteed to produce a matching strictly including only matching pairs, it must be valid. \\
     \end{proof}
+    \noindent
     \textbf{Pf. of Optimality}
     \begin{proof}
         Suppose the matching generated is non-optimal. \\
@@ -63,7 +64,6 @@ Input: $n$, $\{b_1, \dots, b_n\}$, $L_1, \dots, L_n$
         However, the min-cost flow algorithm is guaranteed to find the lowest cost valid flow. \\
         Contradiction. \\
     \end{proof}
-    \noindent
     \textbf{Runtime}
     \begin{proof}
         The construction of $G$ can be done in $O(n^2)$ (polynomial) time. \\
