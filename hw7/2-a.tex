@@ -32,7 +32,7 @@ Input: $n$, $\{b_1, \dots, b_n\}$, $L_1, \dots, L_n$
         \ENDIF
     \end{algorithmic}
     \noindent
-    \textbf{Correctness}
+    \textbf{Correctness} \\
     \textbf{Pf. of Validity}
     \begin{proof}
         Note: No driver can be matched with an incompatible bus by construction, since an edge can only exist between a driver and a valid bus. \\
@@ -64,6 +64,7 @@ Input: $n$, $\{b_1, \dots, b_n\}$, $L_1, \dots, L_n$
         However, the min-cost flow algorithm is guaranteed to find the lowest cost valid flow. \\
         Contradiction. \\
     \end{proof}
+    \noindent
     \textbf{Runtime}
     \begin{proof}
         The construction of $G$ can be done in $O(n^2)$ (polynomial) time. \\
