@@ -1,3 +1,38 @@
 \begin{problem}
-  {Q2(b)}
+    {Q2(b)}
+    Assumptions: No driver has an empty list. \\\\
+    Basic premise: \\
+    1. Group together drivers who (transitively) share a bus with another driver in the group. \\
+    2. Connect that group with the set of buses that are collectively shared (set union of all their lists). \\
+    3. If the group size is larger than the number of buses it maps to, give the drivers GPSes
+    4. Otherwise put them on the buses which correspond to the group. \\\\
+    To solve (1), simply connect drivers who share a bus with an edge, then take each connected component as a group. \\
+    \noindent
+    \textbf{Runtime}
+    \begin{proof}
+        Constructing the graph for step (1) takes $O(n^2)$ time, as there are $n+1$ lists each with up to $n+1$ buses on them \\
+        Finding connected components can be done in polynomial time using BFS or DFS. \\
+        The final assignment of GPSes can be done in $O(n)$ time, as each driver and bus is considered exactly once. \\
+        The runtime is therefore polynomial in $n$. \\
+    \end{proof}
+    \noindent
+    \textbf{Correctness}
+    \noindent
+    \textbf{Validity}
+    \begin{proof}
+        The set union of all groups is equal to the set of all drivers. \\
+        Since each group maps to some set of buses, and either the entire group or entire mapped buses get GPS, the matching is valid. \\
+    \end{proof}
+    \noindent
+    \textbf{Optimality}
+    \begin{proof}
+        Suppose some group is given GPSes but it would be more ideal to give GPSes to their mapped buses. \\
+        Note that no other group can be mapped to any of these buses by construction, otherwise this group would be part of another group. \\
+        This implies there are fewer buses than people. \\
+        This is a contradiction, as step 3 of the algorithm implies there are fewer drivers in the group than mapped buses. \\
+        Suppose some mapped buses are given GPSes but it would be more ideal to give GPSes to the group mapped to them. \\
+        Note that by the pigeonhole principle, at least one driver will be idle at any given time. \\
+        This means giving a GPS to that driver will cause one idle GPS at any time. \\
+        However, if all those GPSes were given to the buses, then there would be 0 idle GPSes, as there are more drivers than buses by line 4. \\
+    \end{proof}
 \end{problem}
