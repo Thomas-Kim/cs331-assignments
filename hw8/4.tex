@@ -1,14 +1,52 @@
 \begin{problem}
-  {Q4: 8.22}
-  Suppose that someone gives you a black-box algorithm $\mathcal{A}$ that takes an undirected graph $G = (V,E)$ and a number $k$, and behaves as
-  follows:
-  \begin{itemize}
+    {Q4: 8.22}
+    Suppose that someone gives you a black-box algorithm $\mathcal{A}$ that takes an undirected graph $G = (V,E)$ and a number $k$, and behaves as
+    follows:
+    \begin{itemize}
       \item If $G$ is not connected, it simply returns "$G$ is not connected"
       \item If $G$ is connected and has an independent set of size at least $k$, it returns "yes"
       \item If $G$ is connected and does not have an independent set of size at least $k$, it returns "no"
-  \end{itemize}
-  Suppose that the algorithm $\mathcal{A}$ runs in time polynomial in this size of $G$ and $k$.
+    \end{itemize}
+    Suppose that the algorithm $\mathcal{A}$ runs in time polynomial in this size of $G$ and $k$.
 
-  Show how, using calls to $\mathcal{A}$, you could then solve the Independent Set Problem in polynomial time: Given an arbitrary undirected
-  graph $G$, and a number $k$, does $G$ contain an independent set of size at least $k$?
+    Show how, using calls to $\mathcal{A}$, you could then solve the Independent Set Problem in polynomial time: Given an arbitrary undirected
+    graph $G$, and a number $k$, does $G$ contain an independent set of size at least $k$?
+    \begin{algorithmic}[1]
+        \STATE Use BFS to find a set of connected subgraphs of $G$ $\mathcal{G} = \{G_1, G_2, \dots, G_m\}$
+        \STATE $SUM := 0$
+        \FOR {$\forall G_i \in \mathcal{G}$}
+            \STATE $MAX := 0$;
+            \FOR {$\forall 1 \leq j \leq |G_i|$}
+                \IF {$\mathcal{A}(G_i, j) = $ "yes"}
+                    \STATE $MAX := j$
+                \ENDIF
+            \ENDFOR
+            \STATE $SUM := SUM + MAX$
+        \ENDFOR
+        \IF {$SUM \geq k$}
+        \RETURN $"YES"$
+        \ELSE
+        \RETURN $"NO"$
+        \ENDIF
+    \end{algorithmic}
+    \textbf{Runtime}
+    \begin{proof}
+        BFS can be done in polynomial time $O(|E|)$. \\
+        $\mathcal{A}$ is called on each connected component up to $|V|$ times. \\
+        This is $O(|V|^2)$ time, which is polynomial. \\
+        Therefore, the total runtime is polynomial. \\
+    \end{proof}
+    \textbf{Correctness}
+    \begin{proof}
+        The algorithm identifies the maximum size independent set for each connected component. \\
+        By definition, different connected subgraphs do not share any edges. \\
+        Therefore, the union of two independent sets for two different connected components is an independent set
+        for the graph composed of these two components. \\
+        By line 5, only the largest independent set for each connected component is used in the final calculation. \\
+        By lines 7 and 10, the algorithm sums each of the independent sets for each connected component. \\
+        By the previous claim, the union of these sets is a valid independent set for each connected component. \\
+        By the previous claim, the largest independent set for the entire graph is the union of the aforementioned sets. \\
+        By line 12, this cardinality for the largest independent set is compared to $k$. \\
+        Therefore, the algorithm will always accurately decide the Independent Set Problem, since it always finds the largest independent set. \\
+    \end{proof}
 \end{problem}

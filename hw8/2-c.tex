@@ -1,6 +1,23 @@
 \begin{problem}
-  {Q2(c): 13.11(c)}
-  Now assume that machines have slightly larger buffers; each machine $M$ will do the first two jobs it receives, and reject any additional jobs. Let
-  $R_k(k)$ denote the expected number of rejected jobs under this rule. What is $lim_{k \rightarrow \infty} \frac{R_2(k)}{k}$? Give a proof of your
-  answer.
+    {Q2(c): 13.11(c)}
+    Now assume that machines have slightly larger buffers; each machine $M$ will do the first two jobs it receives, and reject any additional jobs. Let
+    $R_2(k)$ denote the expected number of rejected jobs under this rule. What is $lim_{k \rightarrow \infty} \frac{R_2(k)}{k}$? Give a proof of your
+    answer.
+    \begin{proof}
+        $\frac{N(k)}{k} = \frac{1}{e} \implies N(k) = \frac{k}{e}$ \\
+        $\implies \frac{k}{e}$ processors will do $0$ jobs. \\
+        Consider the following event E: job $j$ is assigned to processor $p$, and jobs $l \neq j$ are not assigned to processor $p$. \\
+        The probability of this is $(1 - \frac{1}{k})^{j-1}(\frac{1}{k})(1 - \frac{1}{k})^{k - j}) = \frac{1}{k}(1-\frac{1}{k})^{k - 1}$ \\
+        There are $k$ such possibilities for $j$ and $k$ such possibilities for $p \implies Pr[E] = \frac{k^2}{k}(1 - \frac{1}{k})^{k-1} = k(1 - \frac{1}{k})^{k-1}$ \\
+        We see $lim_{k \rightarrow \infty}k(1 - \frac{1}{k})^{k-1} = \frac{1}{e} \implies \frac{k}{e}$ processors will have exactly 1 job. \\
+        The remainder of the processors will process 2 jobs and reject the rest, so $\frac{k}{e}$ do 0 jobs, $\frac{k}{e}$ do 1 job, $k -
+        \frac{2k}{e}$ do 2 jobs. \\
+        Therefore, the number of jobs that get done is $\frac{k}{e} + 2k - 2\frac{2k}{e} = 2k - \frac{3k}{e}$. \\
+        Therefore, the number of jobs that don't get done is $k - 2k + \frac{3k}{e} = -k + \frac{3k}{e} = \frac{3k - ek}{e} = \frac{k(3 - e)}{e}$ \\
+        Now we see the fraction of jobs that doesn't get done is $\frac{\frac{k(3-e)}{e}}{k} = \frac{3-e}{e}$
+        The limit of $R_2(k)$ specified in the problem describes the number of rejected jobs as $k$ approaches infinity. \\
+        The above calculation calculates the number of 1-accept and 2-accept processors as $k$ approaches infinity. \\
+        Therefore, the number of rejected jobs is simply the difference between $k$ and the sum of the 1-accept and 2-accept processors. \\
+        Therefore, $lim_{k \rightarrow \infty} \frac{R_2(k)}{k} = \frac{3-e}{e}$ \\
+    \end{proof}
 \end{problem}

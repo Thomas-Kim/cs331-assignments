@@ -3,4 +3,10 @@
   Suppose that machines are not able to queue up excess jobs, so if the random assignment of jobs to machines sends more than one jobs to a machine
   $M$, then $M$ will do the first of the jobs it receives and reject the rest. Let $R(k)$ be the expected number of rejected jobs; so $\frac{R(k)}{k}$
   is the expected fraction of rejected jobs. What is $lim_{k \rightarrow \infty}\frac{R(k)}{k}$? Give a proof of your answer.
+  \begin{proof}
+    The number of accepted jobs is $k - N(k)$ by definition. \\
+    Therefore, the number of rejected jobs is $k - (k - N(k))$ \\
+    $R(k) = k - (k - N(k)) = k(1 - \frac{1}{k})^k \implies \frac{R(k)}{k} = (1 - \frac{1}{k})^k$ \\
+    $lim_{k \rightarrow \infty}1 - \frac{1}{k})^k = \frac{1}{e}$ \\
+  \end{proof}
 \end{problem}

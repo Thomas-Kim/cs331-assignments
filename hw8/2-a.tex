@@ -12,4 +12,10 @@
 
   Let $N(k)$ be the expected number of machines that do not receive any jobs, so that $\frac{N(k)}{k}$ is the expected fraction of machines with
   nothing to do. What is the value of the limit $lim_{k \rightarrow \infty}\frac{N(k)}{k}$? Give a proof of your answer.
+  \begin{proof}
+    $Pr[\text{Machine i doesn't get any jobs}] = (1 - \frac{1}{k})^k$ \\
+    $\implies N(k) = k(1 - \frac{1}{k})^k$ \\
+    $\implies \frac{N(k)}{k} = (1 - \frac{1}{k})^k$ \\
+    According to WolframAlpha, $lim_{k \rightarrow \infty} (1 - \frac{1}{k})^k = \frac{1}{e}$
+  \end{proof}
 \end{problem}

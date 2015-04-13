@@ -11,4 +11,13 @@
 
     Let $X$ denote the random variable equal to the number of votes received by the Democratic candidate $D$ when the voting is conducted with this
     process of error. Determine the expected value of $X$, and give an explanation of your derivation of this value.
+
+    \begin{proof}
+        Let $A_i$ be a binary random variable where $A_i = 1$ if voter $i$ voted for $D$ and $A_i = 0$ if voter $i$ voted for $R$. \\
+        By this, $X = \sum_{1}^{100000} A_i$ \\
+        For $1 \leq i \leq 80000$, $E[A_i] = 0.99 \times 1 + 0.01 \times 0 = 0.99$ \\
+        For $80000 < i \leq 100000$, $E[A_i] = 0.99 \times 0 + 0.01 \times 1 = 0.01$ \\
+        Since each event is independent, the cumulative expectation is linear with respect to each individual event. \\
+        Therefore, $E[X] = \sum_{1}^{80000} 0.99 + \sum_{80001}^{100000} 0.01 = 79400$ \\
+    \end{proof}
 \end{problem}
