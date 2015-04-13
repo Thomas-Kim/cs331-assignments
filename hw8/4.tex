@@ -1,0 +1,14 @@
+\begin{problem}
+  {Q4: 8.22}
+  Suppose that someone gives you a black-box algorithm $\mathcal{A}$ that takes an undirected graph $G = (V,E)$ and a number $k$, and behaves as
+  follows:
+  \begin{itemize}
+      \item If $G$ is not connected, it simply returns "$G$ is not connected"
+      \item If $G$ is connected and has an independent set of size at least $k$, it returns "yes"
+      \item If $G$ is connected and does not have an independent set of size at least $k$, it returns "no"
+  \end{itemize}
+  Suppose that the algorithm $\mathcal{A}$ runs in time polynomial in this size of $G$ and $k$.
+
+  Show how, using calls to $\mathcal{A}$, you could then solve the Independent Set Problem in polynomial time: Given an arbitrary undirected
+  graph $G$, and a number $k$, does $G$ contain an independent set of size at least $k$?
+\end{problem}

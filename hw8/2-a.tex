@@ -1,0 +1,15 @@
+\begin{problem}
+  {Q2(a): 13.11(a)}
+  \textit{Load balancing algorithms} for parallel or distributed systems seek to spread out collections of computing
+  jobs over multiple machines. In this way, no one machine becomes a "hot spot." If some kind of central coordination is possible, then the load can
+  potentially be spread out almost perfectly. But what if the jobs are coming from diverse sources that can't coordinate? As we saw in
+  Section 13.10, one option is to assign them to machines at random and hope that this randomization will work to prevent imblanaces. Clearly , this
+  won't generally work as well as a perfectly centralized solution, but it can be quite effective. Here we try analyzing some variations and extensions
+  on the simple load balancing heuristic we considered in Section 13.10.
+  
+  Suppose you have $k$ machines, and $k$ jobs show up for processing. Each job is assigned to one of the $k$ machines independently at random (with
+  each machine equally likely).
+
+  Let $N(k)$ be the expected number of machines that do not receive any jobs, so that $\frac{N(k)}{k}$ is the expected fraction of machines with
+  nothing to do. What is the value of the limit $lim_{k \rightarrow \infty}\frac{N(k)}{k}$? Give a proof of your answer.
+\end{problem}
