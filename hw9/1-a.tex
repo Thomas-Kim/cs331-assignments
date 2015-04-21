@@ -1,0 +1,49 @@
+\begin{problem}
+    {Q1(a)}
+    $4-SAT$: Each clause has exactly 4 variables. \\
+    Prove or disprove: $4-SAT$ is NP-Complete \\
+    \textbf{Claim}: $4-SAT$ is NP-Complete \\
+    \textbf{Poly-time reduction}
+    \begin{algorithmic}[1]
+        \STATE Let $\Phi$ be an expression of a 3-SAT problem
+        \STATE Let $\Phi'$ be an initially empty expression
+        \FOR {$\forall C_j = (x \lor y \lor z) \in \Phi$ where $x,y,z$ are literals}
+            \STATE Create a new boolean variable $\alpha$
+            \STATE $C^1_j := (x \lor y \lor z \lor \alpha)$
+            \STATE $C^2_j := (x \lor y \lor z \lor \overline{\alpha})$
+            $\Phi' := \Phi \land C^1_j \land C^2_j$ \\
+        \ENDFOR
+        \RETURN {$4-SAT(\Phi')$}
+    \end{algorithmic}
+    \noindent
+    \textbf{Proof of Correctness}
+    \begin{proof}
+        Take $(x \lor y \lor z \lor \alpha) \land (x \lor y \lor z \lor \overline{\alpha})$ \\
+        $ = ( (x \lor y \lor z) \lor \alpha) \land ( (x \lor y \lor z) \lor
+        \overline{\alpha})$ \\
+        $ = ((x \lor y \lor z) \land (x \lor y \lor z)) \lor ((x \lor y \lor z) \land \overline{\alpha}) \lor (\alpha \land (x \lor y \lor z)) \lor
+        (\alpha \land \overline{\alpha})$ \\
+        $ = (x \lor y \lor z) \lor ((x \lor y \lor z) \land \overline{\alpha}) \lor (\alpha \land (x \lor y \lor z))$ \\
+        $ = (x \lor y \lor z) \lor \left(((x \lor y \lor z) \land \overline{\alpha}) \lor (\alpha \land (x \lor y \lor z))\right)$ \\
+        $ = (x \lor y \lor z) \lor \left((x \lor y \lor z) \land (\overline{\alpha} \lor \alpha)\right)$ \\
+        $ = (x \lor y \lor z) \lor ((x \lor y \lor z) \land T)$ \\
+        $ = (x \lor y \lor z) \lor (x \lor y \lor z)$ \\
+        $ = (x \lor y \lor z)$ \\
+        Therefore, $(x \lor y \lor z \lor \alpha) \land (x \lor y \lor z \lor \overline{\alpha}) = (x \lor y \lor z)$ \\
+        By line 5-6, every clause $C_j \in \Phi$ is transformed into an equivalent set of two clauses $C^1_j, C^2_j \in \Phi'$ \\
+        Now, by the associative property,
+        $C^1_1 \land C^2_1 \land C^1_2 \land C^2_2 \dots \land C^1_n \land C^2_n$
+        $ = (C^1_1 \land C^2_1) \land \dots \land (C^1_n \land C^2_n)$ \\
+        By the previous proof, we have established $(C^1_j \land C^2_j) = C_j$ \\
+        Therefore, $\Phi' = C_1 \land C_2 \land \dots \land C_n$ \\
+        Therefore, $\Phi' = \Phi$ which means $4-SAT$ can solve any 3-SAT problem $\Phi$ by using the above reduction. \\
+    \end{proof}
+    \noindent
+    \textbf{Proof of Runtime}
+    \begin{proof}
+        Let the number of clauses in $C_j$ be expressed as $N$
+        The reduction processes each clause $C_j \in \Phi$ once and generates two new clauses $C^1_j, C^2_j$ \\
+        Therefore, the runtime is $\theta(2N) = \theta(N)$ which is polynomial in $N$ \\
+        Therefore, if the reduction is correct, $3-SAT \leq_{p} 4-SAT$ \\
+    \end{proof}
+\end{problem}

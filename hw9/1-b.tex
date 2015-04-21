@@ -1,0 +1,30 @@
+\begin{problem}
+    {Q1(b)}
+    $T-SAT$: All variables appear in non-negated form only \\
+    Prove or disprove: $T-SAT$ is NP-Complete \\
+    \textbf{Claim}: $T-SAT$ is not NP-Complete \\
+    \textbf{T-SAT Algorithm}
+    \begin{algorithmic}[1]
+        \RETURN 1
+    \end{algorithmic}
+    \noindent
+    \textbf{Proof of correctness}:
+    \begin{proof}
+        Let all variables be assigned T \\
+        Each clause is of the form $(x_1 \lor x_2 \lor \dots \lor x_k)$ \\
+        When every variable is assigned T, this reduces to: \\
+        $(T \lor T \lor \dots \lor T)$ \\
+        So every clause evaluates True. \\
+        Now $\Phi = C_1 \land C_2 \land \dots \land C_n$ \\
+        Since every clause is True, this becomes: \\
+        $\Phi = T \land T \land T \dots \land T$ \\
+        This trivially evaluates to True. \\
+        Therefore, every T-SAT expression is satisfiable. \\
+        The algorithm returns $1$ by line 1, so it is correct. \\
+    \end{proof}
+    \noindent
+    \textbf{Proof of runtime}:
+    \begin{proof}
+        The runtime is constant, since there is only 1 line and it is a return statement \\
+    \end{proof}
+\end{problem}

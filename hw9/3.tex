@@ -1,0 +1,63 @@
+\begin{problem}
+    {Q3: 8.17}
+    \textit{Zero-Weight-Cycle Problem}: \\
+    Given a directed graph $G = (V,E)$ with weights $w_e \in \mathbb{Z}$, does there exist a simple cycle $C$ such that $\sum_{e \in C}w_e = 0$? \\
+    Prove NP-Completeness \\
+    \textbf{Proof of NP}
+    \begin{proof}
+        Let the certificate be some cycle $c = \{e_1, e_2, \dots, e_n\}$ in G \\
+        To verify whether the solution is valid, check whether $\sum_{i = 1}^{n}w_i = 0$ \\
+    \end{proof}
+    \textbf{Reduction from Subset-Sum to Zero-Weight-Cycle}
+    \begin{algorithmic}[1]
+        \STATE Let $T, A = \{a_1, a_2, \dots, a_n\}$ be an instance of the subset-sum problem with target sum $T$ and set $A$
+        \STATE Let $G = (V, E)$ be an initially empty graph
+        \STATE Let $e = (x, y)_w$ be a directed edge from $x$ to $y$ with weight $w$
+        \STATE $V := \{s, v_1, v_2, \dots, v_n\}$
+        \FOR {$\forall a_i \in A$}
+            \FOR {$\forall 1 \leq j < i$}
+                \STATE $E := E \cup \{(v_j, v_i)_{a_i}\}$
+            \ENDFOR
+            \STATE $E := E \cup \{(v_i, s)_{-T}\}$
+        \ENDFOR
+        \RETURN $Zero-Weight-Cycle(G)$
+    \end{algorithmic}
+    \noindent
+    \textbf{Proof of correctness}:
+    \begin{proof}
+        Claim: Any cycle $\{e_1, e_2, \dots, e_n\}$ contains exactly one or zero edges corresponding to each weight $a_i \in A$
+        Suppose 2 edges in the cycle have the same weight $a_i$. \\
+        This means 2 edges entered $v_i$, as only edges incoming to $v_i$ have weight $a_i$ \\
+        This means $v_i$ was used at least twice, thus it is not a simple cycle. \\
+        As a corollary, this means every cycle corresponds precisely to one valid subset of $A$ \\\\
+        Claim: Any simple cycle must pass through $s$. \\
+        Remove all edges with one endpoint at $s$ from the graph \\
+        By construction, there exists no edge between nodes $v_i, v_j$ where $i > j$ \\
+        Therefore, there exists a topological ordering of this new graph. \\
+        Therefore, there exist no cycles in this new graph without any edges to $s$. \\
+        Therefore, any cycle must pass through $s$. \\\\
+        Claim: No edge in the graph has a weight $w \neq a_i \land w \neq -T$ \\
+        By construction, every graph is assigned a weight either from $a_i \in A$ or $-T$ \\\\
+        Claim: If a simple cycle $C$ has weight 0, there exists a subset with sum $T$ \\
+        Remove the edge $(v_k, s)$ from the cycle to get $C'$. 
+        By construction, $\sum_{e_i \in C'}w_i = T$ since the weight of $(v_k, s) = -T$ \\
+        Construct a subset $A'$ which contains all $a_i$ such that $e_i \in C'$ \\
+        The sum of this subset is precisely $T$ \\
+        Claim: If no simple cycle $C$ has weight 0, there exists no subset with sum $T$ \\
+        Suppose there existed a subset $\{x_1, x_2, \dots, x_n\}$ with sum $T$. \\
+        Order this set such that $x_i < x_j \equiv i < j$ \\
+        Create a cycle using edges $(s, x_1), (x_1, x_2), \dots, (x_n, s)$ \\
+        The first $n$ edges have a total weight of $T$ by construction. \\
+        The last edge has a weight of $-T$ \\
+        Therefore the cycle has zero weight. \\
+        Contradiction. \\
+    \end{proof}
+    \noindent
+    \textbf{Proof of runtime}:
+    \begin{proof}
+        Let the size of the set be $N$ \\
+        For each set element, precisely 1 vertex and at most $\theta(N)$ edges are made \\
+        Therefore, the runtime of the reduction is $\theta(N^2)$ \\
+        This is polynomial in $N$. \\
+    \end{proof}
+\end{problem}

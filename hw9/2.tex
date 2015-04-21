@@ -1,0 +1,62 @@
+\begin{problem}
+    {Q2: 8.16}
+    \textit{Intersection~Inference~Problem}: \\
+    Given a finite set $U$ of size $n$ and collection $A_1, \dots, A_m$ of subsets of $U$, cardinalities $c_1, \dots, c_m$, does there exist
+    a set $X \subset U$ such that $X \cap A_i = c_i$? \\
+    Prove NP-Completeness
+    \begin{algorithmic}[1]
+    \STATE Let 3 disjoint sets $X, Y, Z$ of size $n$ and $T \subset X \times Y \times Z$ be an instance of 3D matching
+    \STATE Let $m = |X \cup Y \cup Z|$
+    \STATE Let $U$ be an initially empty set
+    \STATE Let $A_1, \dots, A_m$ be initially empty sets
+    \STATE Let $c_1, \dots, c_m = 1$
+    \STATE $U := T$
+    \FOR {$\forall v_i \in X \cup Y \cup Z$}
+        \FOR {$\forall t_j = (x, y, z) \in T$}
+            \IF {$v_i = x \lor v_i = y \lor v_i = z$}
+                \STATE $A_i := A_i \cup t_j$
+            \ENDIF
+        \ENDFOR
+    \ENDFOR
+    \RETURN $Intersection-Inference(U, A_1, \dots, A_m, c_1, \dots, c_m)$
+    \end{algorithmic}
+    \noindent
+    \textbf{Proof of correctness}:
+    \begin{proof}
+        Suppose there exists some $X$ which fulfills the Intersection Inference condition. \\
+        By construction, $X \subset T$ \\
+        Claim: $X$ contains at most one triple $(x,y,z)$ for each unique value of $x, y, z$ \\
+        Suppose two triples in $X$ contain the same element. \\
+        Without loss of generality, suppose this element is $x$ \\
+        Find the set $A_i$ containing all triples that include $x$ \\
+        Now, $|X \cap A_i| = 2$ because two triples contain $x$, both of which are in $A_i$ and both of which are in $X$ \\
+        Contradiction. \\
+        Claim: $X$ contains a triple containing each unique value at least once
+        Suppose $X$ does not contain a triple that includes some unique value $v$. \\
+        Find $A_i$ corresponding to $v$ \\
+        $|X \cap A_i| = 0$ because $A_i$ contains only triples which include $v$ \\
+        Contradiction
+        Therefore, $X$ contains each element exactly once. \\\\
+        Suppose there does not exist any $X$ which fulfills the Intersection Inference condition. \\
+        Claim: There does not exist any 3D matching \\
+        Suppose there existed a 3D matching. \\
+        Take each triple $t_i$ in the 3D matching and let $X = \{t_i\}$ \\
+        By the 3D matching problem statement, $X$ contains precisely 1 triple for every value $v \in X \cup Y \cup Z$ \\
+        Take any arbitrary $A_i$ \\
+        $|X \cap A_i| = 1$, because precisely one triple in $X_i$ contains the value associated with $A_i$ \\
+        Contradiction. \\
+    \end{proof}
+    \noindent
+    \textbf{Proof of runtime}:
+    \begin{proof}
+        Let $n$ be the cardinality $|X \cup Y \cup Z|$ \\
+        Let $m$ be the cardinality $|T|$ \\
+        For each element of $X \cup Y \cup Z$, the reduction checks each $t_i$ \\
+        All other operations are constant time. \\
+        Therefore, the reduction has runtime $\theta(mn)$ \\
+        Let $N = max(|X|, |Y|, |Z|)$ \\
+        We see $n = |X \cup Y \cup Z| \leq 3N$ \\
+        Also, $m = |T| \leq N^3$ \\
+        So the runtime as a function of the largest set is $\theta(N^4)$, which is polynomial.
+    \end{proof}
+\end{problem}
