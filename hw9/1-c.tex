@@ -2,4 +2,36 @@
     {Q1(c)}
     $P-SAT$: Each clause has precisely 3 variables, and each variable appears in exactly 3 clauses. \\
     Prove or disprove: $P-SAT$ is NP-Complete
+    \textbf{Claim}: $P-SAT$ is always satisfiable
+    \begin{proof}
+        Claim: For an expression in $n$ variables, there are $n$ clauses. \\
+        Given $n$ variables each appearing 3 times, there are $3n$ literals. \\
+        Given $3n$ literals and $3$ literals per clause, there are $n$ clauses. \\\\
+        Claim: There exists a one-to-one and onto mapping $F$ between clauses and variables with the following property: \\
+        Each variable $v$ is mapped to a clause containing a literal $v$ or $\overline{v}$ \\
+        Each variable $v$ appears $3$ times in negated or non-negated form \\\\
+        This means $F$ can map $v \rightarrow C_i$, where $i$ can take on 3 distinct values \\
+        Suppose there is no one-to-one and onto mapping. \\
+        This means all 3 clauses must be mapped to other variables. \\
+        By the pigeonhole principle, after mapping each clause to precisely 1 variable, there will be one left over. \\
+        Construct an undirected graph as follows: \\
+        \textbf{1}. Each node represents a clause. \\
+        \textbf{2}. Each edge represents a shared variable between clauses. \\\\
+        Now, suppose the leftover clause is part of a connected component of this graph which is disjoint from the component containing $v$ \\
+        Note that there are $k$ variables and $k+1$ clauses associated with this connected component \\
+        This is clear because only one variable is unmapped, so $k$ variables map to $k$ clauses and the leftover clause can only map to those $k$
+        variables. \\
+        This is a contradiction, as there are $3k+3$ literals with only $k$ variables. \\
+        Therefore, the leftover clause must be part of a connected component containing $v$ \\
+        This connected component, by definition, must contain a path from the leftover variable to some clause containing $v$ \\
+        For each edge $e = (C_l, C_p)$ on this path, take the leftover clause $C_l$ and replace the clause it is connected with on the path $C_p$ to create a new
+        mapping $F'(F(C_p)) = C_l$, creating a new leftover clause $C'_l = C_p$. \\
+        At the end of this path, the last leftover clause must be a clause which uses $v$, and thus can be mapped to $v$ \\
+        At each step of this iteration, a new valid mapping is created to replace $C_p$, so the resulting mapping is one-to-one and onto \\\\
+        For each clause $C$, take the literal $l$ corresponding to the variable $F^{-1}(C)$ \\
+        Simply satisfy this literal and $C$ is satsified. \\
+        There can be no conflicting assignments, because the mapping is one-to-one and onto. \\
+        Therefore, every instance of $P-SAT$ is satisfiable. \\
+        Therefore, $P-SAT$ can be decided in constant time, simply return $1$ every time. \\
+    \end{proof}
 \end{problem}
