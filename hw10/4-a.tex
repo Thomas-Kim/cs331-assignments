@@ -4,4 +4,9 @@
     Greedy Algorithm: Start with an empty truck, then begin piling containers $1, 2, 3, \dots$ until you get to a container which would overflow the weight limit. \\
     Now declare this truck "loaded" and send it off; then continue the process with a fresh truck. \\
     Given an example of a set of weights, a value of $K$, where this algorithm does not use the minimum possible number of trucks. \\
+    \begin{proof}
+        Let $K = 3$, $w_1, \dots, w_{\frac{n}{2}} = 2, w_{\frac{n+2}{2}}, \dots, w_n = 1$, $n \geq 4$, $n$ is even \\
+        Trivially, the ideal arrangement would be to have each truck carry one container of weight $2$ and one of weight $1$ to fully utilize every truck. \\
+        However, the first truck will be loaded with weight $w_1 = 2$, then $w_2 = 2$ would overload it, so it will leave with only weight 2. \\
+    \end{proof}
 \end{problem}

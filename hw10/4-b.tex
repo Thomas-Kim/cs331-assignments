@@ -1,4 +1,19 @@
 \begin{problem}
     {Q4(b)}
     Show, however, that the number of trucks used by this algorithm is within a factor of $2$ of the minimum possible number, for any set of weights and any value $K$ \\
+    \begin{proof}
+        Claim: The average utilization of each truck will not be below $\frac{1}{2}$ \\
+        Suppose some truck currently carrying weight $a$ cannot accept $w_i$, because $w_i + a > K$ \\
+        This means $a > K - w_i$ by definition. \\
+        The minimum usage of this truck would therefore be $\frac{K - w_i + 1}{K}$ \\
+        The next truck is guaranteed to use at least $b = w_i$ weight, since it is initially empty and $w_i$ is the first container to be loaded. \\
+        Therefore, the average utilization of these two trucks is $\frac{1}{2}\left(\frac{K - w_i + 1}{K} + \frac{w_i}{K}\right)$ \\
+        $= \frac{K + 1}{2K} > \frac{K}{2K} = \frac{1}{2}$ \\
+        Extending this, the average usage of any arbitrary adjacent pair of trucks is guaranteed to be at least $\frac{1}{2}$ \\
+        Now, given a container assignment, choose adjacent pairs such that each pair is disjoint from all other pairs. \\
+        Given $N$ trucks used, this situation is equivalent to having $N$ trucks each using precisely $\frac{1}{2}$ of their max capacity. \\
+        The lower bound for the minimum number of trucks $N_m$ trivially occurs when all trucks use precisely $100\%$ of their max capacity. \\
+        So given that each truck, in the worst situation with the greedy algorithm, use at least $50\%$ of their max capacity, the number of trucks
+        used by the greedy algorithm must be within a factor of $2$ of the minimum possible number. \\
+    \end{proof}
 \end{problem}

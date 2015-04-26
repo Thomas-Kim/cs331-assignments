@@ -4,4 +4,16 @@
     \begin{align*}
         \textbf{A} = \{<M> | \forall w \in \textbf{S}~M \text{accepts} w\} \text{ where \textbf{S} is the set of all strings}
     \end{align*}
+    \begin{proof}
+        Define a mapping reduction $R(<M>)$ as follows: \\\\
+        1. Erase the tape \\
+        2. Write $\epsilon$ to the tape \\
+        3. Run $M$ on $\epsilon$ \\
+        4. Accept \\
+        Return $<M\#>$ \\\\
+        %% TODO: Not sure what we're allowed to reduce to
+        If $<M> \in H_\epsilon: M$ halts on $\epsilon$, so $M\#$ accepts everything. Oracle $<M\#>$ accepts. \\
+        If $<M> \not\in H_\epsilon: M$ does not halt on $\epsilon$, so $M\#$ accepts nothing and doesn't halt. Oracle $<M\#>$ rejects. \\
+        However, no machine to decide $H$ can exist, so Oracle doesn't exist. \\
+    \end{proof}
 \end{problem}

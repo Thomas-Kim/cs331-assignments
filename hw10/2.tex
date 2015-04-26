@@ -1,4 +1,18 @@
 \begin{problem}
     {Q2}
-    Is the set of rational numbers countably infinite or uncountably infinite?
+    Is the set of rational numbers countably infinite or uncountably infinite? \\
+    \textbf{Countably Infinite} \\
+    \begin{proof}
+        Let $r \in \mathbb{Q}$ be a rational number. \\
+        Consider rational numbers of the form $\frac{a}{b}$ where $a \in \mathbb{Z} \land b \in \mathbb{Z}_{\geq 0} \land gcd(a,b) = 1$ \\
+        Claim: All rational numbers $\frac{q}{r}, q, r \in \mathbb{Z}$ can be expressed in this form. \\
+        First, factor out $-1$ from all negative $q, r$, such that the number is expressed $s\frac{|q|}{|r|}$ where $s = (-1)^1 \lor s = (-1)^2$ \\
+        Next, divide $q, r$ by $gcd(q, r)$ such that the number is expressed $s \frac{|q'|}{|r'|}$ where $q', r'$ are the result after dividing $q, r$ by $gcd(q, r)$ \\
+        By the definition of gcd, $q', r'$ share no common prime factors \\
+        Now, define a mapping $f: \mathbb{Q} \rightarrow \mathbb{Z} \times \mathbb{N}$ as follows: \\
+        $f(\frac{a, b}) = (a, b)$ \\
+        This mapping is clearly onto, as every Cartesian pair can be mapped to a corresponding real number by taking $(a,b) \rightarrow \frac{a}{b}$ \\
+        The cartesian product of $\mathbb{Z} \times \mathbb{N}$ is countably infinite \\
+        Therefore, the rational numbers are countably infinite. \\
+    \end{proof}
 \end{problem}
